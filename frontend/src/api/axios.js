@@ -1,0 +1,43 @@
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5001/api",
+});
+
+// Automatically add the Access Token to every request
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Handle Token Expiry
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+
+    // If token expired, try to refresh once
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        const refreshToken = localStorage.getItem("refreshToken");
+        const res = await axios.post(
+          `${api.defaults.baseURL}/auth/refresh-token`,
+          { token: refreshToken },
+        );
+
+        localStorage.setItem("accessToken", res.data.accessToken);
+        return api(originalRequest);
+      } catch (refreshError) {
+        localStorage.clear();
+        window.location.href = "/login";
+      }
+    }
+    return Promise.reject(error);
+  },
+);
+
+export default api;
