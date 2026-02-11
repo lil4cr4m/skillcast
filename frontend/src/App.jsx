@@ -13,7 +13,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
-import CreatePulse from "./pages/CreatePulse";
+import CreateCast from "./pages/CreateCast";
 
 /**
  * MAIN APP COMPONENT
@@ -40,7 +40,7 @@ function App() {
                 path="/create"
                 element={
                   <Protected>
-                    <CreatePulse />
+                    <CreateCast />
                   </Protected>
                 }
               />

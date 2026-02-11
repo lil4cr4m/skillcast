@@ -52,6 +52,14 @@ CREATE TABLE casts (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- REFRESH TOKENS: Session persistence and revocation
+CREATE TABLE refresh_tokens (
+    token TEXT PRIMARY KEY,
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    expires_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- GRATITUDE_NOTES: Peer feedback/Thank you notes
 CREATE TABLE gratitude_notes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

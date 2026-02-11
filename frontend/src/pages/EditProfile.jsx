@@ -104,7 +104,7 @@ const EditProfile = () => {
             Modify_Identity
           </h1>
           <p className="text-ink/50 font-bold text-xs uppercase tracking-widest">
-            Update your public pulse metadata
+            Update your public cast metadata
           </p>
         </header>
 

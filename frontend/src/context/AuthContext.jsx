@@ -53,9 +53,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.clear();
-    setUser(null);
+  const logout = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    try {
+      if (refreshToken) {
+        await api.post("/auth/logout", { token: refreshToken });
+      }
+    } catch {
+      // Ignore logout API failures; local tokens will still be cleared
+    } finally {
+      localStorage.clear();
+      setUser(null);
+    }
   };
 
   return (

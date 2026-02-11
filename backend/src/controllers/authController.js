@@ -3,18 +3,17 @@ import jwt from "jsonwebtoken";
 import { query } from "../config/db.js";
 import { logError } from "../utils/logger.js";
 
-// Prefer dedicated refresh secret; fall back to JWT_SECRET if not provided so login doesn't crash
-const ACCESS_SECRET = process.env.JWT_SECRET;
-const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET;
+// Prefer dedicated refresh secret; provide dev-safe defaults if env is missing to avoid 500s locally
+const ACCESS_SECRET = process.env.JWT_SECRET || "dev_access_secret";
+const REFRESH_SECRET =
+  process.env.JWT_REFRESH_SECRET ||
+  process.env.JWT_SECRET ||
+  "dev_refresh_secret";
 /**
  * TOKEN GENERATOR
  * Returns a 15-minute access token and a 7-day refresh token.
  */
 const generateTokens = (user) => {
-  if (!ACCESS_SECRET || !REFRESH_SECRET) {
-    throw new Error("JWT secrets are missing in environment variables");
-  }
-
   const accessToken = jwt.sign(
     { id: user.id, role: user.role },
     ACCESS_SECRET,

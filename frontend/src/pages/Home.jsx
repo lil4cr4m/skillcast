@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 
-// Project Imports - Standardized Paths
 import { useAuth } from "../context/AuthContext";
-import PulseFeed from "../components/pulses/PulseFeed";
+import CastFeed from "../components/CastFeed";
 import Leaderboard from "../components/Leaderboard";
 import { Button } from "../components/ui/Button";
 
 const Home = () => {
   // Access dynamic user data from the DB via AuthContext
   const { user } = useAuth();
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeChannel] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
@@ -22,32 +21,29 @@ const Home = () => {
         className="lg:col-span-3 lg:sticky lg:top-[6rem] space-y-6 order-2 lg:order-1"
         aria-label="User actions and stats"
       >
-        <div className="bg-white border-ink p-[2rem] shadow-brutal-lg text-ink">
-          <h1 className="text-4xl font-black uppercase mb-[1rem] leading-tight tracking-tighter">
-            USER//
-            <br />
-            <span className="bg-violet text-white px-[0.5rem] italic border-2 border-black">
+        <div className="bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <h1 className="text-3xl font-black uppercase tracking-tighter mb-4">
+            USER//{" "}
+            <span className="text-violet italic">
               {user?.username || "Guest"}
             </span>
           </h1>
-          <p className="text-[0.75rem] font-black uppercase tracking-[0.2em] text-green">
-            ● BROADCAST_READY
-          </p>
-        </div>
-
-        <Link to="/create" className="block">
-          <button className="w-full py-4 bg-green border-ink font-black text-xl uppercase italic shadow-brutal hover-lift">
-            + NEW_CAST
-          </button>
-        </Link>
-
-        <div className="bg-yellow border-ink p-[1.5rem] shadow-brutal-sm text-ink">
-          <p className="text-[0.75rem] font-black uppercase italic tracking-widest">
-            EARNED_CREDITS
-          </p>
-          <p className="text-[3rem] font-black leading-none">
-            {user?.credit || 0}
-          </p>
+          <div className="bg-yellow border-4 border-black p-4 mb-4">
+            <p className="text-[0.6rem] font-black uppercase tracking-widest text-black/60">
+              Total_Credit
+            </p>
+            <p className="text-4xl font-black leading-none">
+              {user?.credit || 0}
+            </p>
+          </div>
+          <Link to="/create">
+            <Button
+              variant="neon"
+              className="w-full py-4 text-lg text-center justify-center"
+            >
+              START_CASTING
+            </Button>
+          </Link>
         </div>
       </aside>
 
@@ -79,8 +75,8 @@ const Home = () => {
             </div>
           </div>
 
-          <PulseFeed
-            selectedCategory={activeCategory}
+          <CastFeed
+            selectedChannel={activeChannel}
             searchQuery={searchQuery.trim()}
           />
         </section>
@@ -91,8 +87,8 @@ const Home = () => {
         className="lg:col-span-3 lg:sticky lg:top-[6rem] order-3"
         aria-label="Top casters leaderboard"
       >
-        <div className="bg-white border-3 border-ink rounded-[2rem] shadow-brutal-lg overflow-hidden">
-          <div className="p-[1.5rem] border-b-3 border-ink bg-yellow text-ink">
+        <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+          <div className="p-[1.5rem] border-b-4 border-black bg-yellow">
             <h2 className="text-[1.25rem] font-black uppercase tracking-tighter leading-none">
               Top_Casters
             </h2>

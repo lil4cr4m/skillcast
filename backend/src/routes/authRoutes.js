@@ -4,6 +4,7 @@ import {
   login,
   refreshToken,
   changePassword,
+  logout,
 } from "../controllers/authController.js";
 import { authenticateToken } from "../middleware/authMiddleware.js";
 
@@ -13,5 +14,6 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/refresh", refreshToken);
 router.post("/change-password", authenticateToken, changePassword);
+router.post("/logout", authenticateToken, logout);
 
 export default router;

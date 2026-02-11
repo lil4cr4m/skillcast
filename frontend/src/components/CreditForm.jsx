@@ -30,8 +30,8 @@ const GratitudeForm = ({ castId, onNoteSent }) => {
   };
 
   return (
-    <div className="mt-6 p-4 bg-pink/15 rounded-xl border-3 border-ink shadow-brutal-sm">
-      <h4 className="text-ink font-black flex items-center gap-2 mb-2">
+    <div className="mt-3 p-4 bg-pink/15 border-3 border-ink shadow-brutal-sm animate-in slide-in-from-top-2 duration-300">
+      <h4 className="text-ink font-black flex items-center gap-2 mb-2 ">
         <Heart size={18} className="text-pink" /> SEND_GRATITUDE
       </h4>
       <p className="text-xs text-ink/70 mb-4 font-bold uppercase tracking-wide">

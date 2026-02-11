@@ -4,13 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        offwhite: "#FFFFFF",
+        offwhite: "#F8F8F8",
         ink: "#000000",
-        yellow: "#FFD100", // Cyber Yellow
-        violet: "#A358FF", // Electric Violet
-        green: "#00FF85", // Neon Green (Primary Action)
-        pink: "#FF3BFF", // Hyper Pink (Error / End Cast)
-        cyan: "#00E0FF", // Cyan Blue
+        yellow: "#FFD100", // Credit Yellow
+        violet: "#A358FF", // Cast Violet
+        green: "#00FF85", // Broadcast Neon
+        pink: "#FF3BFF", // Signal Pink
+        cyan: "#00E0FF", // System Cyan
       },
       boxShadow: {
         // Neo-brutalist standard shadows

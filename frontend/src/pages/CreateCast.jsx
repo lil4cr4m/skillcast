@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api/axios"; // Your DB-linked axios instance
+import api from "../api/axios";
 import { Button } from "../components/ui/Button";
 import { Zap, Link as LinkIcon, Info, Layers } from "lucide-react";
 
-const CreatePulse = () => {
+const CreateCast = () => {
   // DB States
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -142,4 +142,4 @@ const CreatePulse = () => {
   );
 };
 
-export default CreatePulse;
+export default CreateCast;

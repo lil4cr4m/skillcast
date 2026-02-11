@@ -105,7 +105,7 @@ const Login = () => {
                 {isLogin ? "IN THE CLUB" : "START SHARING"}
               </h2>
               <p className="text-ink/60 font-bold text-xs uppercase mt-2 tracking-widest">
-                {isLogin ? "Join the Pulse" : "Register Here"}
+                {isLogin ? "Join the Cast" : "Register Here"}
               </p>
             </header>
 

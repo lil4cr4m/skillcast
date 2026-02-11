@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
-import api from "../../api/axios"; // Your DB-linked axios instance
-import PulseCard from "./PulseCard";
+import api from "../api/axios";
+import CastCard from "./CastCard";
 
-const PulseFeed = ({ selectedCategory, searchQuery }) => {
+const CastFeed = ({ selectedChannel, searchQuery }) => {
   const [casts, setCasts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    /**
-     * fetchPulses: Pulls data from the backend.
-     * Uses the selectedCategory prop to filter the database query.
-     */
+    // Pull latest casts and allow channel/search filtering.
     const fetchCasts = async () => {
       setLoading(true);
       try {
         const params = {};
-        if (selectedCategory) params.category = selectedCategory;
+        if (selectedChannel) params.channel = selectedChannel;
         if (searchQuery) params.q = searchQuery;
 
         const res = await api.get("/casts", { params });
@@ -28,7 +25,7 @@ const PulseFeed = ({ selectedCategory, searchQuery }) => {
     };
 
     fetchCasts();
-  }, [selectedCategory, searchQuery]); // Refetch when category filter or search changes
+  }, [selectedChannel, searchQuery]);
 
   const handleCastUpdate = (updatedCast) => {
     setCasts((prev) =>
@@ -67,9 +64,9 @@ const PulseFeed = ({ selectedCategory, searchQuery }) => {
   return (
     <div className="grid grid-cols-1 gap-8">
       {casts.map((cast) => (
-        <PulseCard
+        <CastCard
           key={cast.id}
-          pulse={cast}
+          cast={cast}
           onUpdate={handleCastUpdate}
           onDelete={handleCastDelete}
         />
@@ -78,4 +75,4 @@ const PulseFeed = ({ selectedCategory, searchQuery }) => {
   );
 };
 
-export default PulseFeed;
+export default CastFeed;

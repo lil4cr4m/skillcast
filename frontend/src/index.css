@@ -28,7 +28,9 @@
 
   /* Brutalist broadcast utilities */
   .border-ink {
-    @apply border-[0.25rem] border-ink;
+    border-width: 0.25rem;
+    border-color: theme("colors.ink");
+    border-style: solid;
   }
 
   .hover-lift {

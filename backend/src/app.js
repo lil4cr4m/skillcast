@@ -19,12 +19,28 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+// Ensure refresh_tokens table exists (prevents login 500s on fresh DB)
+const ensureRefreshTokensTable = async () => {
+  try {
+    await query(`
+      CREATE TABLE IF NOT EXISTS refresh_tokens (
+        token TEXT PRIMARY KEY,
+        user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+        expires_at TIMESTAMPTZ NOT NULL,
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+    `);
+  } catch (err) {
+    logError("ensureRefreshTokensTable", err);
+  }
+};
+
 // ==========================================
 // MIDDLEWARE
 // ==========================================
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")
-  : [];
+  : ["http://localhost:5173", "http://127.0.0.1:5173"];
 
 app.use(
   cors({
@@ -41,6 +57,9 @@ app.use(
 );
 
 app.use(express.json()); // Parse incoming JSON requests
+
+// Kick off DB table guard (non-blocking)
+ensureRefreshTokensTable();
 
 // ==========================================
 // HEALTH CHECK & ERROR HANDLING

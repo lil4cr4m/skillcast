@@ -5,7 +5,6 @@ import { Button } from "../ui/Button";
 import {
   LogOut,
   LogIn,
-  RadioTower as BroadcastIcon,
   User as UserIcon,
   Home as HomeIcon,
 } from "lucide-react";
@@ -43,7 +42,7 @@ export const Navbar = () => {
                 : "hover:text-violet"
             }`}
           >
-            <HomeIcon size={16} /> LIVE_CASTS
+            <HomeIcon size={16} /> Feed
           </Link>
 
           {user ? (
@@ -51,19 +50,13 @@ export const Navbar = () => {
               {/* DYNAMIC PROFILE LINK: Uses user.id from AuthContext/Database */}
               <Link
                 to={`/profile/${user.id}`}
-                className={`font-black uppercase text-sm tracking-tight hidden md:flex items-center gap-2 ${
+                className={`font-black uppercase text-sm tracking-tight flex items-center gap-2 ${
                   pathname === `/profile/${user.id}`
                     ? "text-violet underline decoration-4 underline-offset-4"
                     : "hover:text-violet"
                 }`}
               >
                 <UserIcon size={16} /> Profile
-              </Link>
-
-              <Link to="/create">
-                <Button variant="neon" className="py-2 text-xs px-4">
-                  <BroadcastIcon size={14} className="mr-1" /> START_CASTING
-                </Button>
               </Link>
 
               <Button
