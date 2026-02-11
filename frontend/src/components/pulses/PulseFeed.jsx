@@ -44,7 +44,7 @@ const PulseFeed = ({ selectedCategory, searchQuery }) => {
   if (loading) {
     return (
       <div className="flex justify-center py-20 font-black italic text-violet animate-pulse text-xl">
-        SYNCING_LIVE_PULSES...
+        SYNCING_LIVE_CASTS...
       </div>
     );
   }

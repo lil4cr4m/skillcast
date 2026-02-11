@@ -22,30 +22,30 @@ const Home = () => {
         className="lg:col-span-3 lg:sticky lg:top-[6rem] space-y-6 order-2 lg:order-1"
         aria-label="User actions and stats"
       >
-        <div className="bg-white border-4 border-black p-[2rem] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] text-black">
+        <div className="bg-white border-ink p-[2rem] shadow-brutal-lg text-ink">
           <h1 className="text-4xl font-black uppercase mb-[1rem] leading-tight tracking-tighter">
             USER//
             <br />
-            <span className="bg-[#A358FF] text-white px-[0.5rem] italic border-2 border-black">
+            <span className="bg-violet text-white px-[0.5rem] italic border-2 border-black">
               {user?.username || "Guest"}
             </span>
           </h1>
-          <p className="text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#00FF85]">
+          <p className="text-[0.75rem] font-black uppercase tracking-[0.2em] text-green">
             ● BROADCAST_READY
           </p>
         </div>
 
         <Link to="/create" className="block">
-          <button className="w-full py-4 bg-[#FFD100] border-4 border-black font-black text-xl uppercase italic shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
+          <button className="w-full py-4 bg-green border-ink font-black text-xl uppercase italic shadow-brutal hover-lift">
             + NEW_CAST
           </button>
         </Link>
 
-        <div className="bg-[#00E0FF] border-4 border-black p-[1.5rem] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] text-black">
+        <div className="bg-yellow border-ink p-[1.5rem] shadow-brutal-sm text-ink">
           <p className="text-[0.75rem] font-black uppercase italic tracking-widest">
-            EARNED_CREDIT
+            EARNED_CREDITS
           </p>
-          <p className="text-[4rem] font-black tabular-nums leading-none mt-2">
+          <p className="text-[3rem] font-black leading-none">
             {user?.credit || 0}
           </p>
         </div>
@@ -56,7 +56,7 @@ const Home = () => {
         <section className="space-y-[1.5rem]">
           <div className="flex items-center justify-between mb-[0.5rem]">
             <h2 className="text-h2-m xl:text-h2-d font-black italic uppercase tracking-tighter leading-tight">
-              Live_Casts
+              LIVE_CASTS
             </h2>
             <div className="flex gap-[0.5rem] items-center">
               <span className="w-3 h-3 rounded-full bg-green animate-pulse border-2 border-ink" />
@@ -70,7 +70,7 @@ const Home = () => {
             <div className="relative flex-1 w-full">
               <input
                 type="text"
-                placeholder="SEARCH_FOR_SIGNALS..."
+                placeholder="SEARCH_FOR_CHANNELS..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="input-brutal w-full pr-12"
@@ -89,12 +89,12 @@ const Home = () => {
       {/* LEADERBOARD COL */}
       <aside
         className="lg:col-span-3 lg:sticky lg:top-[6rem] order-3"
-        aria-label="Top nodes leaderboard"
+        aria-label="Top casters leaderboard"
       >
         <div className="bg-white border-3 border-ink rounded-[2rem] shadow-brutal-lg overflow-hidden">
           <div className="p-[1.5rem] border-b-3 border-ink bg-yellow text-ink">
             <h2 className="text-[1.25rem] font-black uppercase tracking-tighter leading-none">
-              Top_Nodes
+              Top_Casters
             </h2>
           </div>
           <div className="min-w-0">

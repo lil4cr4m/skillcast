@@ -25,9 +25,9 @@ function App() {
       {" "}
       {/* 1. Provider starts here */}
       <Router>
-        <div className="min-h-screen bg-pulse-violet">
+        <div className="min-h-screen bg-offwhite">
           <Navbar /> {/* 2. Navbar is now INSIDE and can see the Auth state */}
-          <main className="container mx-auto px-4 py-8">
+          <main className="max-w-layout mx-auto px-4 md:px-6 lg:px-10 py-8 md:py-10">
             <Routes>
               {/* PUBLIC ROUTES */}
               <Route path="/" element={<Home />} />
@@ -50,9 +50,9 @@ function App() {
                 path="*"
                 element={
                   <div className="flex flex-col items-center justify-center py-20">
-                    <h1 className="text-6xl font-black text-slate-200">404</h1>
-                    <p className="text-slate-500 mt-4">
-                      Vibe not found. Let's go back home.
+                    <h1 className="text-6xl font-black text-violet">404</h1>
+                    <p className="text-ink/60 mt-4 font-bold uppercase text-xs tracking-widest">
+                      FEED_NOT_FOUND: ROUTE BACK TO LIVE_CASTS.
                     </p>
                   </div>
                 }

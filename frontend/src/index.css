@@ -25,4 +25,13 @@
   .text-sm {
     @apply text-ink;
   }
+
+  /* Brutalist broadcast utilities */
+  .border-ink {
+    @apply border-[0.25rem] border-ink;
+  }
+
+  .hover-lift {
+    @apply hover:-translate-x-1 hover:-translate-y-1 hover:shadow-none transition-all;
+  }
 }

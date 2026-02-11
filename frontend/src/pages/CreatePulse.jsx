@@ -118,7 +118,7 @@ const CreatePulse = () => {
             </label>
             <textarea
               className="input-brutal h-32 resize-none"
-              placeholder="Tell the network what we're pulsing about..."
+              placeholder="Tell the network what we're casting about..."
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
               }

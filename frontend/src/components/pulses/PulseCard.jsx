@@ -57,7 +57,7 @@ const PulseCard = ({ pulse, onUpdate, onDelete }) => {
   };
 
   return (
-    <div className="bg-white border-[0.1875rem] border-ink p-[1.75rem] md:p-[2.25rem] rounded-[1.5rem] shadow-brutal-lg transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal group h-full flex flex-col">
+    <div className="bg-white border-[0.1875rem] border-ink p-[1.75rem] md:p-[2.25rem] rounded-[1.5rem] shadow-brutal-lg hover-lift group h-full flex flex-col">
       {/* HEADER: Channel and Credit */}
       <div className="flex justify-between items-start gap-[1.25rem] mb-[1.25rem]">
         <span className="bg-cyan border-[0.1875rem] border-ink px-[0.5rem] py-[0.25rem] rounded text-[0.625rem] font-black uppercase tracking-widest leading-none">
@@ -201,12 +201,12 @@ const PulseCard = ({ pulse, onUpdate, onDelete }) => {
               </Button>
               <Button
                 type="button"
-                variant="cyan"
+                variant="pink"
                 className="flex-1"
                 onClick={handleDelete}
                 disabled={deleting}
               >
-                <Trash2 size={18} /> {deleting ? "Deleting..." : "Delete"}
+                <Trash2 size={18} /> {deleting ? "Ending..." : "End Cast"}
               </Button>
             </div>
           )}

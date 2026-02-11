@@ -95,7 +95,7 @@ const EditProfile = () => {
         onClick={() => navigate(-1)}
         className="flex items-center gap-2 font-black uppercase text-xs mb-6 hover:text-violet transition-colors"
       >
-        <ChevronLeft size={16} /> Back to Node
+        <ChevronLeft size={16} /> Back to Profile
       </button>
 
       <div className="bg-white border-3 border-ink p-8 rounded-[2.5rem] shadow-brutal-lg">

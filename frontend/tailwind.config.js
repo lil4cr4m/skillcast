@@ -8,14 +8,15 @@ export default {
         ink: "#000000",
         yellow: "#FFD100", // Cyber Yellow
         violet: "#A358FF", // Electric Violet
-        green: "#00FF85", // Neon Green
-        pink: "#FF3BFF", // Hot Pink
+        green: "#00FF85", // Neon Green (Primary Action)
+        pink: "#FF3BFF", // Hyper Pink (Error / End Cast)
         cyan: "#00E0FF", // Cyan Blue
       },
       boxShadow: {
-        brutal: "5px 5px 0px 0px #000000",
-        "brutal-lg": "8px 8px 0px 0px #000000",
-        "brutal-sm": "3px 3px 0px 0px #000000",
+        // Neo-brutalist standard shadows
+        brutal: "8px 8px 0px 0px rgba(0,0,0,1)",
+        "brutal-lg": "12px 12px 0px 0px rgba(0,0,0,1)",
+        "brutal-sm": "4px 4px 0px 0px rgba(0,0,0,1)",
       },
       // 8pt grid expressed in rem (1rem = 16px)
       spacing: {

@@ -7,12 +7,13 @@ export const Button = ({
   ...props
 }) => {
   const variants = {
-    yellow: "bg-yellow text-ink hover:bg-[#e6bd00]",
-    violet: "bg-violet text-white hover:bg-[#8f47ff]",
-    pink: "bg-pink text-white hover:bg-[#e632e6]",
-    cyan: "bg-cyan text-ink hover:bg-[#00c9e6]",
-    neon: "bg-[#39ff14] text-ink hover:bg-[#2ddc10]",
-    outline: "bg-white text-ink hover:bg-slate-50",
+    yellow: "bg-yellow text-ink hover:bg-yellow/90",
+    violet: "bg-violet text-white hover:bg-violet/90",
+    pink: "bg-pink text-white hover:bg-pink/90",
+    cyan: "bg-cyan text-ink hover:bg-cyan/90",
+    // Primary SkillCast action: Start Cast
+    neon: "bg-green text-ink hover:bg-green/90",
+    outline: "bg-white text-ink hover:bg-yellow/10",
   };
 
   return (

@@ -138,7 +138,7 @@ const Profile = () => {
             {profile.credit}
           </div>
           <div className="font-black text-[10px] uppercase tracking-widest italic opacity-60 text-center">
-            Credit
+            Credits
           </div>
         </div>
 
