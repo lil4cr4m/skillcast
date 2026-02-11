@@ -96,16 +96,16 @@ const Login = () => {
         ) : (
           /* VIEW B: USER IS LOGGED OUT (Show Login/Signup) */
           <>
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow border-3 border-ink rounded-full flex items-center justify-center animate-bounce">
-              <Zap size={30} />
+            <div className="absolute top-[1rem] right-[1rem] w-[4.5rem] h-[4.5rem] bg-yellow border-3 border-ink rounded-full flex items-center justify-center animate-bounce shadow-brutal-sm">
+              <Zap size={28} />
             </div>
 
             <header className="text-center mb-10">
               <h2 className="text-4xl font-black italic uppercase tracking-tighter">
-                {isLogin ? "Auth_Login" : "Init_User"}
+                {isLogin ? "IN THE CLUB" : "START SHARING"}
               </h2>
               <p className="text-ink/60 font-bold text-xs uppercase mt-2 tracking-widest">
-                {isLogin ? "Synchronize with the Pulse" : "Register a new Node"}
+                {isLogin ? "Join the Pulse" : "Register Here"}
               </p>
             </header>
 
@@ -157,7 +157,7 @@ const Login = () => {
                 />
                 <input
                   type="email"
-                  placeholder="EMAIL_ADDRESS"
+                  placeholder="EMAIL"
                   required
                   className="input-brutal pl-12"
                   onChange={(e) =>
@@ -173,7 +173,7 @@ const Login = () => {
                 />
                 <input
                   type="password"
-                  placeholder="SECURITY_KEY"
+                  placeholder="PASSWORD"
                   required
                   className="input-brutal pl-12"
                   onChange={(e) =>
@@ -189,11 +189,11 @@ const Login = () => {
               >
                 {isLogin ? (
                   <>
-                    <LogIn size={20} /> AUTHORIZE
+                    <LogIn size={20} /> SIGN IN
                   </>
                 ) : (
                   <>
-                    <UserPlus size={20} /> INITIALIZE
+                    <UserPlus size={20} /> SIGN UP
                   </>
                 )}
               </Button>

@@ -12,48 +12,48 @@ const PulseCard = ({ pulse }) => {
   const isOwner = user?.id === pulse.creator_id;
 
   return (
-    <div className="bg-white border-3 border-ink p-6 rounded-2xl shadow-brutal-lg transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal group">
+    <div className="bg-white border-[0.1875rem] border-ink p-[1.75rem] md:p-[2.25rem] rounded-[1.5rem] shadow-brutal-lg transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal group h-full flex flex-col">
       {/* HEADER: Category and Karma */}
-      <div className="flex justify-between items-start mb-4">
-        <span className="bg-green border-3 border-ink px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">
+      <div className="flex justify-between items-start gap-[1.25rem] mb-[1.25rem]">
+        <span className="bg-green border-[0.1875rem] border-ink px-[0.5rem] py-[0.25rem] rounded text-[0.625rem] font-black uppercase tracking-widest leading-none">
           {pulse.vibe_category || "General"}
         </span>
-        <div className="text-sm font-black italic underline decoration-pink decoration-4 underline-offset-2">
+        <div className="text-[0.875rem] md:text-[1rem] font-black italic underline decoration-pink decoration-[0.125rem] md:decoration-[0.25rem] underline-offset-2 tracking-tighter leading-tight shrink-0">
           {pulse.karma ?? 0} KP
         </div>
       </div>
 
       {/* BODY: Title and Description */}
-      <h3 className="text-2xl font-black leading-none mb-2 group-hover:text-violet transition-colors">
+      <h3 className="text-[1.5rem] font-black leading-tight tracking-tighter uppercase mb-[1rem] group-hover:text-violet transition-colors truncate">
         {pulse.title}
       </h3>
-      <p className="text-ink/70 font-bold mb-6 line-clamp-2 leading-tight">
+      <p className="text-[1rem] text-ink/70 font-bold leading-[1.6] mb-[1.75rem] line-clamp-2 flex-1">
         {pulse.description}
       </p>
 
       {/* USER INFO: Linked to DB User Object */}
-      <div className="flex items-center justify-between text-sm font-bold mb-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-cyan border-3 border-ink rounded-full flex items-center justify-center shadow-brutal-sm">
+      <div className="flex items-center justify-between text-[0.875rem] font-bold mb-[1.75rem]">
+        <div className="flex items-center gap-[0.75rem]">
+          <div className="w-10 h-10 bg-cyan border-[0.1875rem] border-ink rounded-full flex items-center justify-center shadow-brutal-sm">
             <UserIcon size={18} />
           </div>
           <div className="leading-tight">
-            <div className="text-ink font-black italic">
+            <div className="text-ink font-black italic leading-tight">
               @{pulse.username || "anonymous"}
             </div>
-            <div className="text-ink/50 text-[10px] uppercase tracking-tighter">
+            <div className="text-ink/50 text-[0.625rem] uppercase tracking-tighter leading-none">
               {pulse.interest_name || "Member"}
             </div>
           </div>
         </div>
         {/* Neon Green "Live" Tag */}
-        <span className="bg-green border-3 border-ink px-2 py-0.5 rounded text-[10px] font-black uppercase">
+        <span className="bg-green border-[0.1875rem] border-ink px-[0.5rem] py-[0.25rem] rounded text-[0.625rem] font-black uppercase tracking-widest leading-none">
           Live
         </span>
       </div>
 
       {/* ACTIONS: Join and Gratitude */}
-      <div className="flex gap-3">
+      <div className="flex gap-[0.75rem] mt-auto">
         <a
           href={pulse.meeting_link}
           target="_blank"
@@ -62,7 +62,7 @@ const PulseCard = ({ pulse }) => {
         >
           <Button
             variant="yellow"
-            className="w-full flex items-center justify-center gap-2 py-2"
+            className="w-full flex items-center justify-center gap-[0.5rem] py-[0.5rem] leading-tight"
           >
             Join <ExternalLink size={16} />
           </Button>
@@ -72,7 +72,7 @@ const PulseCard = ({ pulse }) => {
         {user && !isOwner && (
           <Button
             variant="outline"
-            className="px-4"
+            className="px-[0.75rem]"
             onClick={() => setShowGratitude(!showGratitude)}
           >
             <Heart
@@ -85,7 +85,7 @@ const PulseCard = ({ pulse }) => {
 
       {/* CONDITIONAL FORM: Gratitude Flow */}
       {showGratitude && (
-        <div className="mt-4 p-4 border-3 border-ink rounded-xl bg-violet/5 animate-in slide-in-from-top-2 duration-300">
+        <div className="mt-[1rem] p-[1rem] border-[0.1875rem] border-ink rounded-xl bg-violet/5 animate-in slide-in-from-top-2 duration-300">
           <GratitudeForm
             pulseId={pulse.id}
             onNoteSent={() => setTimeout(() => setShowGratitude(false), 2000)}

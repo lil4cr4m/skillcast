@@ -6,7 +6,7 @@ import { logError } from "../utils/logger.js";
  * Fetches signals created within the last 24h. Supports vibe filtering.
  */
 export const getAllPulses = async (req, res) => {
-  const { category } = req.query;
+  const { category, q } = req.query;
   try {
     let queryText = `
             SELECT p.*, u.username, u.karma, i.name as interest_name, i.vibe_category
@@ -18,15 +18,21 @@ export const getAllPulses = async (req, res) => {
 
     const params = [];
     if (category) {
-      queryText += ` AND i.vibe_category = $1`;
       params.push(category);
+      queryText += ` AND i.vibe_category = $${params.length}`;
+    }
+
+    if (q) {
+      params.push(`%${q}%`);
+      const idx = params.length;
+      queryText += ` AND (p.title ILIKE $${idx} OR p.description ILIKE $${idx} OR u.username ILIKE $${idx} OR i.name ILIKE $${idx})`;
     }
 
     queryText += ` ORDER BY p.created_at DESC`;
     const pulses = await query(queryText, params);
     res.json(pulses.rows);
   } catch (err) {
-    logError("pulseController.getAllPulses", err, { category });
+    logError("pulseController.getAllPulses", err, { category, q });
     res.status(500).json({ error: "Failed to fetch pulse feed" });
   }
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../api/axios"; // Your DB-linked axios instance
 import PulseCard from "./PulseCard";
 
-const PulseFeed = ({ selectedCategory }) => {
+const PulseFeed = ({ selectedCategory, searchQuery }) => {
   const [pulses, setPulses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,10 +14,11 @@ const PulseFeed = ({ selectedCategory }) => {
     const fetchPulses = async () => {
       setLoading(true);
       try {
-        const res = await api.get("/pulses", {
-          // If a category is selected, pass it as a query param
-          params: selectedCategory ? { category: selectedCategory } : {},
-        });
+        const params = {};
+        if (selectedCategory) params.category = selectedCategory;
+        if (searchQuery) params.q = searchQuery;
+
+        const res = await api.get("/pulses", { params });
         setPulses(res.data);
       } catch (err) {
         // Detailed error logging for debugging API mismatches
@@ -29,7 +30,7 @@ const PulseFeed = ({ selectedCategory }) => {
     };
 
     fetchPulses();
-  }, [selectedCategory]); // Refetch when category filter changes
+  }, [selectedCategory, searchQuery]); // Refetch when category filter or search changes
 
   // LOADING STATE: Consistent with the app's font style
   if (loading) {

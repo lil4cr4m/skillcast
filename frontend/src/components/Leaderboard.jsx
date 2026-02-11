@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
-import { Trophy, Medal, Star, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Leaderboard = () => {
@@ -12,71 +11,39 @@ const Leaderboard = () => {
         const res = await api.get("/users/leaderboard");
         setLeaders(res.data);
       } catch (err) {
-        console.error("[Leaderboard] Failed to load leaderboard", err);
+        console.error("[Leaderboard] Sync Error", err);
         setLeaders([]);
       }
     };
     fetchLeaders();
   }, []);
 
-  const getIcon = (index) => {
-    if (index === 0) return <Trophy className="text-yellow" size={20} />;
-    if (index === 1) return <Medal className="text-slate-400" size={20} />;
-    if (index === 2) return <Medal className="text-amber-700" size={20} />;
-    return <Star className="text-violet/30" size={16} />;
-  };
-
   return (
-    <div className="divide-y-3 divide-ink/10">
+    <div className="divide-y-[0.1875rem] divide-ink/10">
       {leaders.map((leader, index) => (
         <Link
           key={leader.id}
           to={`/profile/${leader.id}`}
-          className="group flex items-center justify-between p-4 hover:bg-violet/10 transition-colors first:rounded-t-xl last:rounded-b-xl"
+          className="group grid grid-cols-[2rem_1fr_auto] items-center gap-[1rem] p-[1rem] hover:bg-violet/5 transition-all min-w-0"
         >
-          <div className="flex items-center gap-4">
-            {/* Rank Number */}
-            <span className="w-6 text-center font-black italic text-ink/30 italic group-hover:text-violet">
-              {index + 1}
-            </span>
+          <span className="font-black italic text-ink/20 text-[1rem] xl:text-[1.125rem] leading-none">
+            {index + 1}
+          </span>
 
-            <div className="flex items-center gap-3">
-              <div className="bg-white border-2 border-ink p-1.5 rounded-lg shadow-brutal-sm group-hover:-rotate-6 transition-transform">
-                {getIcon(index)}
-              </div>
-              <div className="flex flex-col">
-                <span className="font-black uppercase text-sm tracking-tighter">
-                  {leader.username}
-                </span>
-                <span className="text-[10px] font-bold text-ink/40 uppercase tracking-widest">
-                  Level_{Math.floor(leader.karma / 100) + 1}
-                </span>
-              </div>
-            </div>
+          <div className="flex flex-col min-w-0">
+            <span className="font-black uppercase text-[0.95rem] xl:text-[1rem] leading-none tracking-tighter truncate">
+              {leader.username}
+            </span>
+            <span className="text-[0.6rem] xl:text-[0.625rem] font-black uppercase tracking-widest text-ink/40 mt-[0.25rem] leading-tight">
+              Level_{Math.floor(leader.karma / 100) + 1}
+            </span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <span className="block font-black text-lg leading-none">
-                {leader.karma}
-              </span>
-              <span className="text-[8px] font-black uppercase tracking-tighter opacity-50">
-                Karma
-              </span>
-            </div>
-            <ChevronRight
-              size={16}
-              className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
-            />
+          <div className="bg-yellow border-[0.125rem] border-ink px-[0.5rem] py-[0.25rem] rounded shadow-brutal-sm text-[0.625rem] xl:text-[0.6875rem] font-black leading-none whitespace-nowrap">
+            {leader.karma} KP
           </div>
         </Link>
       ))}
-
-      {leaders.length === 0 && (
-        <div className="p-8 text-center font-black uppercase text-xs opacity-40">
-          Syncing_Leader_Nodes...
-        </div>
-      )}
     </div>
   );
 };

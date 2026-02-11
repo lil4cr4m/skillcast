@@ -17,9 +17,9 @@ export const Button = ({
   return (
     <button
       className={twMerge(
-        "border-3 border-ink px-6 py-3 font-black rounded-xl transition-all",
-        "shadow-brutal active:translate-x-[3px] active:translate-y-[3px] active:shadow-brutal-sm",
-        "uppercase tracking-tight flex items-center justify-center gap-2",
+        "border-[0.1875rem] border-ink px-[1.5rem] py-[0.75rem] font-black rounded-[0.75rem] transition-all",
+        "shadow-brutal active:translate-x-[0.1875rem] active:translate-y-[0.1875rem] active:shadow-none",
+        "text-[1rem] uppercase tracking-tight flex items-center justify-center gap-[0.5rem]",
         variants[variant],
         className,
       )}
