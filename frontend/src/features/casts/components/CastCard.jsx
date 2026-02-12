@@ -187,26 +187,26 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
 
       {/* VIEWER BUTTONS - One line layout */}
       {!isOwner && (
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
           {/* Show JOIN_CAST for LIVE casts, INACTIVE_CAST for ENDED casts */}
           {cast.status === "LIVE" ? (
             <a
               href={cast.meeting_link}
               target="_blank"
               rel="noreferrer"
-              className="flex-1"
+              className="flex-1 min-w-0"
             >
               <Button
                 variant="violet"
-                className="w-full flex items-center justify-center gap-2 text-xs"
+                className="w-full flex items-center justify-center gap-1.5 text-[0.65rem] px-3 py-2"
               >
-                JOIN_CAST <ExternalLink size={14} />
+                JOIN_CAST <ExternalLink size={12} />
               </Button>
             </a>
           ) : cast.status === "ENDED" ? (
             <Button
               variant="outline"
-              className="flex-1 text-xs cursor-not-allowed opacity-60"
+              className="flex-1 min-w-0 text-[0.65rem] px-3 py-2 cursor-not-allowed opacity-60"
               disabled
             >
               INACTIVE_CAST
@@ -216,11 +216,11 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
           {user && (cast.status === "LIVE" || cast.status === "ENDED") && (
             <Button
               variant="outline"
-              className="px-3"
+              className="px-2.5 py-2"
               onClick={() => setShowCreditForm(!showCreditForm)}
             >
               <Heart
-                size={18}
+                size={16}
                 className={showCreditForm ? "fill-pink text-pink" : "text-ink"}
               />
             </Button>
@@ -228,69 +228,50 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
         </div>
       )}
 
-      {/* OWNER BUTTONS - One line layout with edit, pause/resume, end, delete */}
+      {/* OWNER BUTTONS - 3 buttons: EDIT, END_CAST/RESUME_CAST, DELETE_CAST */}
       {isOwner && !editMode && (
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
+          {/* Button 1: EDIT */}
           <Button
             variant="cyan"
-            className="flex-1 text-xs"
+            className="flex-1 min-w-0 text-[0.65rem] px-2 py-2 gap-1"
             onClick={() => setEditMode(true)}
           >
-            <PencilLine size={14} /> EDIT
+            <PencilLine size={12} /> EDIT_CAST
           </Button>
-          {/* LIVE casts can be paused */}
-          {cast.status === "LIVE" && (
-            <Button
-              variant="yellow"
-              className="flex-1 text-xs"
-              onClick={() => handleStatusChange("PAUSED")}
-              disabled={saving}
-            >
-              <Pause size={14} /> PAUSE_CAST
-            </Button>
-          )}
-          {/* PAUSED casts can be resumed */}
-          {cast.status === "PAUSED" && (
-            <Button
-              variant="neon"
-              className="flex-1 text-xs"
-              onClick={() => handleStatusChange("LIVE")}
-              disabled={saving}
-            >
-              <Play size={14} /> RESUME_CAST
-            </Button>
-          )}
-          {/* ENDED casts can be resumed to LIVE */}
-          {cast.status === "ENDED" && (
-            <Button
-              variant="neon"
-              className="flex-1 text-xs"
-              onClick={() => handleStatusChange("LIVE")}
-              disabled={saving}
-            >
-              <Play size={14} /> RESUME_CAST
-            </Button>
-          )}
-          {/* END button available for LIVE and PAUSED casts */}
-          {(cast.status === "LIVE" || cast.status === "PAUSED") && (
+
+          {/* Button 2: END_CAST (when LIVE) or RESUME_CAST (when PAUSED/ENDED) */}
+          {cast.status === "LIVE" ? (
             <Button
               variant="danger"
-              className="flex-1 text-xs"
+              className="flex-1 min-w-0 text-[0.65rem] px-2 py-2 gap-1"
               onClick={() => handleStatusChange("ENDED")}
               disabled={saving}
             >
-              <StopCircle size={14} /> END_CAST
+              <StopCircle size={12} /> END_CAST
             </Button>
+          ) : (
+            (cast.status === "PAUSED" || cast.status === "ENDED") && (
+              <Button
+                variant="neon"
+                className="flex-1 min-w-0 text-[0.65rem] px-2 py-2 gap-1"
+                onClick={() => handleStatusChange("LIVE")}
+                disabled={saving}
+              >
+                <Play size={12} /> RESUME_CAST
+              </Button>
+            )
           )}
-          {/* DELETE button (archives cast) - available for all non-archived casts */}
+
+          {/* Button 3: DELETE_CAST (archives cast) */}
           {cast.status !== "ARCHIVED" && (
             <Button
               variant="danger"
-              className="flex-1 text-xs"
+              className="flex-1 min-w-0 text-[0.65rem] px-2 py-2 gap-1"
               onClick={handleDelete}
               disabled={deleting}
             >
-              <Trash2 size={14} /> {deleting ? "DELETING..." : "DELETE_CAST"}
+              <Trash2 size={12} /> {deleting ? "DEL..." : "DELETE_CAST"}
             </Button>
           )}
         </div>

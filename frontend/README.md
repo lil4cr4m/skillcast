@@ -96,17 +96,24 @@ src/
 
 #### Button
 
-Reusable button with variants.
+Reusable button component with **WCAG AA compliant** color variants and white text for maximum contrast.
 
 ```jsx
 import { Button } from "./shared/ui/Button";
 
-<Button variant="pink" onClick={handleClick}>
+<Button variant="violet" onClick={handleClick}>
   Click Me
 </Button>;
 ```
 
-**Variants:** `default`, `pink`, `ink`, `outline`, `danger`
+**Variants:** `yellow` (default), `violet`, `pink`, `cyan`, `neon`, `danger`, `outline`
+
+**Features:**
+
+- Neo-brutalist shadow effects (`shadow-brutal`)
+- Active press animation (translates on click)
+- White text on all dark backgrounds
+- Flexible content support (icons + text)
 
 #### Navbar
 
@@ -178,15 +185,20 @@ const MyComponent = () => {
 
 **Key Functionality:**
 
-- List all casts with filtering
-- Create new casts
+- List all casts with filtering by status
+- Create new casts (default status: LIVE)
 - Send appreciation notes
-- Join cast (external link)
-- Edit/delete own casts (owner only)
+- Join cast (external link for LIVE casts)
+- Edit/delete/archive own casts (owner only)
+- Status management (LIVE, PAUSED, ENDED, ARCHIVED)
+- Resume archived casts from profile page
 
 **UI Features:**
 
-- Live status indicator
+- Status indicators (green animated dot for LIVE, red static for ENDED)
+- Conditional button display based on cast status and user role
+- Owner controls: EDIT, END/RESUME, DELETE (3-button streamlined layout)
+- Viewer controls: JOIN (LIVE) or INACTIVE (ENDED), plus heart button for notes
 - Creator info and credit display
 - Meeting link button
 - Note form with success confirmation
@@ -199,7 +211,7 @@ const MyComponent = () => {
 
 **Components/Pages:**
 
-- `Profile.jsx` - User profile view with stats and received notes
+- `Profile.jsx` - User profile view with stats, notes, and archived casts
 - `EditProfile.jsx` - Edit user bio and profile info
 - `AdminUsers.jsx` - Admin panel for managing all users
 - `Leaderboard.jsx` - Community leaderboard ranked by credit
@@ -208,7 +220,8 @@ const MyComponent = () => {
 
 - View user profile with stats
 - Edit own profile
-- View received/sent notes
+- View received/sent notes with edit/delete capabilities
+- View and unarchive past casts (owner and admins only)
 - Admin user management (role, status)
 - Community leaderboard display
 
@@ -296,13 +309,20 @@ All components use Tailwind utility classes. No custom CSS needed for most cases
 
 ### Color Palette
 
-Neo-brutalist custom colors defined in `tailwind.config.js`:
+Neo-brutalist custom colors defined in `tailwind.config.js` - **WCAG AA compliant** (4.5:1 contrast ratio on white backgrounds):
 
-| Color                | Usage                         | Hex     |
-| -------------------- | ----------------------------- | ------- |
-| `ink`                | Dark text, borders, primary   | #1a1a1a |
-| `pink`               | Accent, highlights, secondary | #ff3bff |
-| `white` / `offwhite` | Backgrounds, cards            | #ffffff |
+| Color                | Usage                                  | Hex     |
+| -------------------- | -------------------------------------- | ------- |
+| `ink`                | Dark text, borders, primary            | #1a1a1a |
+| `violet`             | Primary brand actions, status badges   | #6D28D9 |
+| `yellow`             | Credit display, attention-getting      | #B45309 |
+| `neon`               | High-priority actions, LIVE indicators | #166534 |
+| `pink`               | Destructive actions, user highlights   | #9D174D |
+| `cyan`               | Secondary actions, utility buttons     | #0E7490 |
+| `danger`             | Delete, logout, critical actions       | #7F1D1D |
+| `white` / `offwhite` | Backgrounds, cards, button text        | #ffffff |
+
+**Button Text:** All dark button variants use white text for maximum accessibility and contrast.
 
 ### Utility Classes
 

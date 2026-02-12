@@ -11,6 +11,8 @@ import {
   Edit3,
   PencilLine,
   Trash2,
+  Archive,
+  RotateCcw,
 } from "lucide-react";
 
 const Profile = () => {
@@ -20,6 +22,7 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [sentNotes, setSentNotes] = useState([]);
   const [receivedNotes, setReceivedNotes] = useState([]);
+  const [archivedCasts, setArchivedCasts] = useState([]);
   const [editingNoteId, setEditingNoteId] = useState(null);
   const [editingContent, setEditingContent] = useState("");
 
@@ -32,6 +35,22 @@ const Profile = () => {
   // For others' profiles, use the fetched profile data
   const displayCredit =
     profile?.credit !== undefined ? profile.credit : currentUser?.credit;
+
+  // Unarchive cast handler - restores archived cast to LIVE status
+  const handleUnarchive = async (castId) => {
+    if (!window.confirm("Restore this cast to LIVE status?")) return;
+
+    try {
+      await api.put(`/casts/${castId}`, { status: "LIVE" });
+      // Remove from archived list
+      setArchivedCasts((prev) => prev.filter((c) => c.id !== castId));
+      // Optionally show success message
+      alert("Cast restored successfully!");
+    } catch (err) {
+      console.error("Error unarchiving cast:", err);
+      alert("Failed to restore cast. Please try again.");
+    }
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -73,6 +92,20 @@ const Profile = () => {
     };
     fetchReceived();
   }, [id, canManageReceived]);
+
+  useEffect(() => {
+    const fetchArchivedCasts = async () => {
+      if (!isOwnProfile && currentUser?.role !== "admin") return;
+      try {
+        const res = await api.get(`/casts/past/${id}`);
+        setArchivedCasts(res.data);
+      } catch (err) {
+        console.error("Error fetching archived casts:", err);
+        setArchivedCasts([]);
+      }
+    };
+    fetchArchivedCasts();
+  }, [id, isOwnProfile, currentUser?.role]);
 
   const joinDate = profile?.created_at
     ? new Date(profile.created_at).toLocaleDateString("en-GB", {
@@ -135,7 +168,7 @@ const Profile = () => {
             onClick={() => navigate("/settings/profile")}
             className="flex items-center gap-2 py-3 px-6 shadow-brutal w-full justify-center"
           >
-            <Edit3 size={18} /> EDIT_SIGNAL
+            <Edit3 size={18} /> EDIT_PROFILE
           </Button>
         </div>
       )}
@@ -401,6 +434,84 @@ const Profile = () => {
                         <Trash2 size={14} />
                       </Button>
                     </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* SECTION: ARCHIVED CASTS (Visible to owner and admins) */}
+        {(isOwnProfile || currentUser?.role === "admin") && (
+          <div className="bg-white border-3 border-ink p-6 rounded-[2rem] shadow-brutal-lg space-y-4">
+            <div className="flex items-center justify-between pb-2">
+              <h3 className="text-2xl font-black uppercase tracking-tighter">
+                ARCHIVED_CASTS
+              </h3>
+              <span className="bg-ink text-white text-[0.65rem] px-2 py-1 font-black rounded-full border-2 border-ink">
+                PAST_BROADCASTS
+              </span>
+            </div>
+
+            {archivedCasts.length === 0 ? (
+              <p className="text-ink/60 font-bold italic p-4">
+                No archived casts yet.
+              </p>
+            ) : (
+              <div className="grid gap-4 sm:grid-cols-2">
+                {archivedCasts.map((cast) => (
+                  <div
+                    key={cast.id}
+                    className="border-3 border-ink rounded-2xl p-5 bg-neutral-50 shadow-brutal hover:shadow-none transition-all flex flex-col gap-3"
+                  >
+                    {/* Header: Title & Channel */}
+                    <div className="flex justify-between items-start gap-3">
+                      <div className="min-w-0 flex-1">
+                        <span className="text-[0.6rem] font-black uppercase tracking-widest text-ink/60 block mb-1">
+                          {cast.channel || "GENERAL"}
+                        </span>
+                        <h4 className="font-black text-lg text-ink uppercase leading-tight">
+                          {cast.title}
+                        </h4>
+                      </div>
+                      <div className="shrink-0">
+                        <Archive size={20} className="text-ink/40" />
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm text-ink/70 font-bold leading-tight line-clamp-2">
+                      {cast.description}
+                    </p>
+
+                    {/* Footer: Skill & Credit */}
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t-2 border-ink/20">
+                      <div className="text-[0.7rem] font-bold text-ink uppercase">
+                        <span className="text-cyan">{cast.skill_name}</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[0.6rem] text-ink/60 font-black uppercase tracking-widest">
+                          CREDIT
+                        </p>
+                        <p className="text-lg font-black text-ink">
+                          {cast.credit || 0}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Archived Date */}
+                    <div className="text-[0.65rem] font-bold text-ink/40 uppercase text-center">
+                      Archived: {new Date(cast.updated_at).toLocaleDateString()}
+                    </div>
+
+                    {/* Unarchive Button */}
+                    <Button
+                      variant="neon"
+                      className="w-full text-xs py-2.5 gap-2"
+                      onClick={() => handleUnarchive(cast.id)}
+                    >
+                      <RotateCcw size={14} /> GO_LIVE
+                    </Button>
                   </div>
                 ))}
               </div>

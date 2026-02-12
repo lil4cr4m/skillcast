@@ -170,15 +170,18 @@ skillcast/
 
 ## Color Palette
 
-| Name           | Hex       | Usage                            |
-| -------------- | --------- | -------------------------------- |
-| Broadcast Neon | `#00FF85` | Primary actions, "active" states |
-| Cast Violet    | `#A358FF` | Brand, admin badges, identities  |
-| Credit Yellow  | `#FFD100` | Leaderboard, social currency     |
-| Signal Pink    | `#FF3BFF` | Deletions, gratitude             |
-| System Cyan    | `#00E0FF` | Utility buttons (Edit, Logout)   |
-| Ink Black      | `#000000` | Borders, shadows, text           |
-| Off-White      | `#F8F8F8` | Canvas background                |
+**WCAG AA Compliant** - All colors meet 4.5:1 contrast ratio requirements for accessibility.
+
+| Name       | Hex       | Usage                                     |
+| ---------- | --------- | ----------------------------------------- |
+| Violet     | `#6D28D9` | Primary brand, admin badges, main CTAs    |
+| Yellow     | `#B45309` | Credit system, attention-getting elements |
+| Neon Green | `#166534` | LIVE status, high-priority actions        |
+| Pink       | `#9D174D` | User highlights, destructive actions      |
+| Cyan       | `#0E7490` | Secondary actions, utility buttons        |
+| Danger Red | `#7F1D1D` | Delete, logout, critical warnings         |
+| Ink Black  | `#1a1a1a` | Borders, shadows, primary text            |
+| Off-White  | `#ffffff` | Canvas background, button text            |
 
 ## API Overview
 
@@ -238,7 +241,11 @@ npm test  # Run Jest tests (when configured)
 - Join via external meeting link
 - Filter by skill channel
 - Search by title/keywords
-- Owner can edit or end cast
+- Cast status management (LIVE, PAUSED, ENDED, ARCHIVED)
+- Owner can edit, end, or archive cast
+- Soft delete with archive functionality preserves cast history
+- Unarchive past casts to restore them to LIVE status
+- Visual status indicators (green animated dot for LIVE, red static for ENDED)
 
 ### Gratitude System
 

@@ -290,7 +290,8 @@ curl -X POST http://localhost:5001/api/auth/login \
 - title (VARCHAR) NOT NULL
 - description (TEXT)
 - meeting_link (TEXT) NOT NULL
-- status (VARCHAR) DEFAULT 'PAUSED' CHECK (status IN ('LIVE', 'PAUSED', 'ENDED'))
+- status (VARCHAR) DEFAULT 'LIVE' CHECK (status IN ('LIVE', 'PAUSED', 'ENDED', 'ARCHIVED'))
+- credit (INT) DEFAULT 0  -- Total credit received from notes
 - created_at (TIMESTAMPTZ)
 - updated_at (TIMESTAMPTZ)
 ```
