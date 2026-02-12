@@ -68,7 +68,7 @@ router.put("/:id", authenticateToken, updateCast);
  * DELETE /api/casts/:id
  * Permanently removes a cast and all related data
  * Only the creator or admin users can delete casts
- * CASCADE deletes handle related gratitude notes automatically
+ * CASCADE deletes handle related notes automatically
  *
  * Path Parameters:
  * - id: Cast UUID to delete

@@ -161,7 +161,7 @@ const Profile = () => {
             {profile.notes_received}
           </div>
           <div className="font-black text-[10px] uppercase tracking-widest italic opacity-80 text-center">
-            Gratitude_Notes
+            NOTES_RECEIVED
           </div>
         </div>
 
@@ -330,7 +330,7 @@ const Profile = () => {
 
             {receivedNotes.length === 0 ? (
               <p className="text-ink/60 font-bold italic p-4">
-                No gratitude signals received yet.
+                No notes received yet.
               </p>
             ) : (
               <div className="space-y-4">

@@ -36,7 +36,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../auth/context/AuthContext";
 import { Button } from "../../../shared/ui/Button";
-import CreditForm from "./CreditForm";
+import NotesForm from "./NotesForm";
 import api from "../../../shared/api/axios";
 import {
   ExternalLink,
@@ -193,7 +193,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
 
       {showCreditForm && (
         <div className="mt-3 p-3 border-2 border-ink rounded-xl bg-pink-muted/10 animate-in slide-in-from-top-2 duration-300">
-          <CreditForm
+          <NotesForm
             castId={cast.id}
             onNoteSent={() => setTimeout(() => setShowCreditForm(false), 1500)}
           />

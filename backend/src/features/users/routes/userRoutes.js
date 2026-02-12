@@ -32,7 +32,7 @@ router.get("/leaderboard", getLeaderboard);
 /**
  * GET /api/users/profile/:id
  * Retrieves user profile with activity statistics
- * Shows user info, total casts, and gratitude notes received
+ * Shows user info, total casts, and notes received
  * Public endpoint - no authentication required
  */
 router.get("/profile/:id", getProfile);

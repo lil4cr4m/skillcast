@@ -1,5 +1,5 @@
 /**
- * GRATITUDE NOTES ROUTES CONFIGURATION
+ * NOTES ROUTES CONFIGURATION
  * Defines all endpoints for the appreciation and feedback system
  * Manages thank-you notes that users send to cast creators
  * Includes automatic credit rewards through database triggers
@@ -23,7 +23,7 @@ const router = express.Router();
 
 /**
  * GET /api/notes/user/:userId
- * Retrieves all gratitude notes received by a specific user
+ * Retrieves all notes received by a specific user
  * Shows appreciation history for cast creators on their profile
  * Public endpoint to display social proof
  *
@@ -38,17 +38,17 @@ router.get("/user/:userId", getUserNotes);
 
 /**
  * GET /api/notes/sent
- * Retrieves all gratitude notes sent by the authenticated user
- * Shows user's own appreciation history and activity
- * Useful for tracking personal gratitude contributions
+ * Retrieves all notes sent by the authenticated user
+ * Shows user's own note history and activity
+ * Useful for tracking personal note contributions
  */
 router.get("/sent", authenticateToken, getSentNotes);
 
 /**
  * POST /api/notes/
- * Creates a new gratitude note for a cast
+ * Creates a new note for a cast
  * Automatically triggers +10 credit reward for cast creator
- * Includes fraud prevention against self-gratitude
+ * Includes fraud prevention against self-notes
  *
  * Body Parameters:
  * - cast_id: Required - UUID of the cast being appreciated
@@ -58,7 +58,7 @@ router.post("/", authenticateToken, createNote);
 
 /**
  * PUT /api/notes/:id
- * Updates the content of an existing gratitude note
+ * Updates the content of an existing note
  * Only the original sender or admin users can edit notes
  * Preserves timestamps and other metadata
  *
@@ -72,7 +72,7 @@ router.put("/:id", authenticateToken, updateNote);
 
 /**
  * DELETE /api/notes/:id
- * Permanently removes a gratitude note
+ * Permanently removes a note
  * Multi-level permissions: sender, cast creator, or admin
  * Allows moderation of inappropriate content
  *

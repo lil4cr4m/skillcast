@@ -13,7 +13,7 @@ import { logError } from "../../../shared/utils/logger.js";
 
 /**
  * Retrieves user profile with aggregated statistics
- * Shows user info, total casts created, and gratitude notes received
+ * Shows user info, total casts created, and notes received
  *
  * @param {object} req - Express request object with user ID in params
  * @param {object} res - Express response object
@@ -28,8 +28,8 @@ export const getProfile = async (req, res) => {
         SELECT 
           u.id, u.username, u.name, u.bio, u.credit, u.role, u.created_at,
           (SELECT COUNT(*) FROM casts WHERE creator_id = $1) as total_casts,
-          (SELECT COUNT(*) FROM gratitude_notes gn 
-           JOIN casts c ON gn.cast_id = c.id 
+          (SELECT COUNT(*) FROM notes n 
+           JOIN casts c ON n.cast_id = c.id 
            WHERE c.creator_id = $1) as notes_received
         FROM users u
         WHERE u.id = $1`,

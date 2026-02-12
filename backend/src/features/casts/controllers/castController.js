@@ -142,7 +142,7 @@ export const updateCast = async (req, res) => {
 /**
  * Permanently deletes a cast and all associated data
  * Only the cast creator or admins can delete casts
- * CASCADE constraints automatically handle related gratitude notes
+ * CASCADE constraints automatically handle related notes
  */
 export const deleteCast = async (req, res) => {
   try {

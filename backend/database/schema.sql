@@ -8,7 +8,7 @@ ALTER DATABASE skillcast_db SET timezone TO 'Asia/Singapore';
 -- 2. CLEANUP
 -- ===========================================================================
 DROP TABLE IF EXISTS refresh_tokens CASCADE;
-DROP TABLE IF EXISTS gratitude_notes CASCADE;
+DROP TABLE IF EXISTS notes CASCADE;
 DROP TABLE IF EXISTS casts CASCADE; -- Renamed from pulses
 DROP TABLE IF EXISTS user_skills CASCADE; -- Renamed from user_interests
 DROP TABLE IF EXISTS skills CASCADE; -- Renamed from interests
@@ -60,8 +60,8 @@ CREATE TABLE refresh_tokens (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- GRATITUDE_NOTES: Peer feedback/Thank you notes
-CREATE TABLE gratitude_notes (
+-- NOTES: Peer feedback/Thank you notes
+CREATE TABLE notes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     cast_id UUID REFERENCES casts(id) ON DELETE CASCADE,
     sender_id UUID REFERENCES users(id) ON DELETE SET NULL,
@@ -84,7 +84,7 @@ $$ language 'plpgsql';
 CREATE TRIGGER tr_update_users BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION update_timestamp();
 CREATE TRIGGER tr_update_casts BEFORE UPDATE ON casts FOR EACH ROW EXECUTE FUNCTION update_timestamp();
 
--- Credit Reward Logic: +10 Credit when a Cast receives a gratitude note
+-- Credit Reward Logic: +10 Credit when a Cast receives a note
 CREATE OR REPLACE FUNCTION award_credit() RETURNS TRIGGER AS $$
 BEGIN
     UPDATE users SET credit = credit + 10 
@@ -93,4 +93,4 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
-CREATE TRIGGER tr_award_credit AFTER INSERT ON gratitude_notes FOR EACH ROW EXECUTE FUNCTION award_credit();
+CREATE TRIGGER tr_award_credit AFTER INSERT ON notes FOR EACH ROW EXECUTE FUNCTION award_credit();

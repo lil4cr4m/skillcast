@@ -99,7 +99,7 @@ app.use("/api/auth", authRoutes); // Authentication: /api/auth/login, /api/auth/
 app.use("/api/users", userRoutes); // User management: /api/users/profile, /api/users/leaderboard, etc.
 app.use("/api/casts", castRoutes); // Live casts: /api/casts/, /api/casts/:id, etc.
 app.use("/api/skills", skillRoutes); // Skill catalog: /api/skills/, /api/skills/add, etc.
-app.use("/api/notes", noteRoutes); // Gratitude notes: /api/notes/, /api/notes/sent, etc.
+app.use("/api/notes", noteRoutes); // Notes: /api/notes/, /api/notes/sent, etc.
 
 // ==========================================
 // ERROR HANDLING
