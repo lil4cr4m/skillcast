@@ -100,8 +100,9 @@ export const Navbar = () => {
 
       // 🧭 REDIRECT TO LOGIN
       navigate("/login");
-    } catch {
+    } catch (error) {
       // 🛡️ FALLBACK - Force navigation even if logout API fails
+      console.error("Error during logout:", error);
       navigate("/login");
     }
   };

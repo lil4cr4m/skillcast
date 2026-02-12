@@ -3,7 +3,7 @@ import api from "../../../shared/api/axios";
 import { Heart, Send } from "lucide-react";
 import { Button } from "../../../shared/ui/Button";
 
-const GratitudeForm = ({ castId, onNoteSent }) => {
+const CreditForm = ({ castId, onNoteSent }) => {
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
@@ -23,7 +23,8 @@ const GratitudeForm = ({ castId, onNoteSent }) => {
       setContent("");
       if (onNoteSent) onNoteSent();
     } catch (err) {
-      setMessage(err.response?.data?.error || "Failed to send gratitude.");
+      console.error("Error sending gratitude note:", err);
+      setMessage(err.response?.data?.error || "Failed to send credit.");
     } finally {
       setIsSubmitting(false);
     }
@@ -32,7 +33,7 @@ const GratitudeForm = ({ castId, onNoteSent }) => {
   return (
     <div className="mt-3 p-4 bg-pink/15 border-3 border-ink shadow-brutal-sm animate-in slide-in-from-top-2 duration-300">
       <h4 className="text-ink font-black flex items-center gap-2 mb-2 ">
-        <Heart size={18} className="text-pink" /> SEND_GRATITUDE
+        <Heart size={18} className="text-pink" /> SEND_CREDIT
       </h4>
       <p className="text-xs text-ink/70 mb-4 font-bold uppercase tracking-wide">
         Leaving a note awards the host +10 Credit!
@@ -58,7 +59,7 @@ const GratitudeForm = ({ castId, onNoteSent }) => {
             variant="pink"
             className="w-full py-2 text-xs tracking-tight disabled:opacity-50"
           >
-            <Send size={16} /> {isSubmitting ? "Sending..." : "Send Gratitude"}
+            <Send size={16} /> {isSubmitting ? "Sending..." : "Send Credit"}
           </Button>
         </form>
       )}
@@ -66,4 +67,4 @@ const GratitudeForm = ({ castId, onNoteSent }) => {
   );
 };
 
-export default GratitudeForm;
+export default CreditForm;

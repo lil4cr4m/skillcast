@@ -165,6 +165,7 @@ const Login = () => {
       }
     } catch (err) {
       // ❌ AUTHENTICATION FAILED
+      console.error("Authentication failed:", err);
       // Display user-friendly error message in app's style
       setError(
         err.response?.data?.error || "ACCESS_DENIED: Check credentials.",
@@ -195,6 +196,7 @@ const Login = () => {
       navigate("/login");
     } catch (err) {
       // ❌ LOGOUT ERROR (rare)
+      console.error("Logout error:", err);
       // Even if logout fails, user should see what happened
       setError("LOGOUT_FAILED: System error.");
     }

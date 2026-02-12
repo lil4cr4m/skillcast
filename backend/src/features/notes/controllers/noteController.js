@@ -15,7 +15,8 @@ import { logError } from "../../../shared/utils/logger.js";
 /**
  * Creates a new gratitude note and triggers automatic credit reward
  * When someone sends gratitude for a cast, the creator receives +10 credits
- * Includes fraud prevention by blocking self-gratitude
+ * Includes fraud prevention by blocking self-gratitude (except for admin users)
+ * Admin users can send gratitude notes to any cast, including their own
  *
  * Database triggers handle the credit awarding automatically
  *
@@ -29,11 +30,15 @@ export const createNote = async (req, res) => {
   try {
     // Security check: Prevent gratitude fraud by blocking self-appreciation
     // Users cannot send gratitude to their own casts to farm credits
+    // Exception: Admin users can send gratitude to any cast
     const castOwner = await query(
       "SELECT creator_id FROM casts WHERE id = $1",
       [cast_id],
     );
-    if (castOwner.rows[0].creator_id === req.user.id) {
+    if (
+      castOwner.rows[0].creator_id === req.user.id &&
+      req.user.role !== "admin"
+    ) {
       return res
         .status(400)
         .json({ error: "You cannot send gratitude to your own cast" });

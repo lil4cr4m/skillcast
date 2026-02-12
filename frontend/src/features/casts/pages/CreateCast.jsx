@@ -24,6 +24,7 @@ const CreateCast = () => {
         const res = await api.get("/skills");
         setSkills(res.data);
       } catch (err) {
+        console.error("Error fetching skills:", err);
         setSkills([]);
       } finally {
         setLoading(false);
@@ -39,6 +40,7 @@ const CreateCast = () => {
       await api.post("/casts", formData);
       navigate("/"); // Redirect back to feed on success
     } catch (err) {
+      console.error("Error creating cast:", err);
       alert("BROADCAST_FAILURE: Ensure all fields are valid.");
     }
   };

@@ -11,6 +11,7 @@ const Leaderboard = () => {
         const res = await api.get("/users/leaderboard");
         setLeaders(res.data);
       } catch (err) {
+        console.error("Error fetching leaderboard:", err);
         setLeaders([]);
       }
     };

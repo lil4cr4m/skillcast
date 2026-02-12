@@ -99,6 +99,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
       await api.delete(`/casts/${cast.id}`);
       onDelete?.(cast.id);
     } catch (err) {
+      console.error("Error deleting cast:", err);
       alert("Unable to delete cast right now.");
     } finally {
       setDeleting(false);
@@ -113,6 +114,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
       onUpdate?.(res.data);
       setEditMode(false);
     } catch (err) {
+      console.error("Error updating cast:", err);
       alert("Update failed. Please check fields and try again.");
     } finally {
       setSaving(false);

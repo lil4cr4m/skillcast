@@ -110,6 +110,7 @@ const CastFeed = ({ selectedChannel, searchQuery }) => {
         setCasts(res.data);
       } catch (err) {
         // ❌ ERROR - RESET TO EMPTY STATE
+        console.error("Error fetching casts:", err);
         // Don't show error to user, just empty feed
         setCasts([]);
       } finally {

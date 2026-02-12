@@ -106,6 +106,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         // 🧹 REFRESH FAILED - FORCE LOGOUT
+        console.error("Token refresh failed, forcing logout:", refreshError);
         // Clear all local data and redirect to login
         localStorage.clear();
         window.location.href = "/login";

@@ -43,6 +43,7 @@ const EditProfile = () => {
 
       navigate(`/profile/${user.id}`);
     } catch (err) {
+      console.error("Error updating profile:", err);
       alert("Failed to update profile signal.");
     } finally {
       setLoading(false);
@@ -79,6 +80,7 @@ const EditProfile = () => {
         confirmPassword: "",
       });
     } catch (err) {
+      console.error("Error changing password:", err);
       setPassStatus({
         message: "",
         error:

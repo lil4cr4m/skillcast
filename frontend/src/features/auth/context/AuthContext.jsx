@@ -117,6 +117,7 @@ export const AuthProvider = ({ children }) => {
         // User data already restored above, just need token
       } catch (err) {
         // 🧹 REFRESH FAILED - CLEAR EVERYTHING
+        console.error("Token refresh failed:", err);
         // Tokens are invalid/expired, force re-login
         localStorage.clear();
         setUser(null);
@@ -164,6 +165,7 @@ export const AuthProvider = ({ children }) => {
       setUser(userPayload);
     } catch (err) {
       // 🚫 LOGIN FAILED - Re-throw for component error handling
+      console.error("Login failed:", err);
       throw err;
     }
   };
@@ -192,8 +194,12 @@ export const AuthProvider = ({ children }) => {
       if (refreshToken) {
         await api.post("/auth/logout", { token: refreshToken });
       }
-    } catch {
+    } catch (error) {
       // 🤷‍♀️ IGNORE SERVER LOGOUT FAILURES
+      console.error(
+        "Server logout failed (continuing with local cleanup):",
+        error,
+      );
       // Network issues shouldn't prevent local logout
       // User security is maintained by clearing local tokens
     } finally {

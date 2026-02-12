@@ -33,6 +33,7 @@ const Profile = () => {
         const res = await api.get(`/users/profile/${id}`);
         setProfile(res.data);
       } catch (err) {
+        console.error("Error fetching profile:", err);
         setProfile(null);
       }
     };
@@ -46,6 +47,7 @@ const Profile = () => {
         const res = await api.get("/notes/sent");
         setSentNotes(res.data);
       } catch (err) {
+        console.error("Error fetching sent notes:", err);
         setSentNotes([]);
       }
     };
@@ -59,6 +61,7 @@ const Profile = () => {
         const res = await api.get(`/notes/user/${id}`);
         setReceivedNotes(res.data);
       } catch (err) {
+        console.error("Error fetching received notes:", err);
         setReceivedNotes([]);
       }
     };
@@ -216,6 +219,7 @@ const Profile = () => {
                               prev.filter((n) => n.id !== note.id),
                             );
                           } catch (err) {
+                            console.error("Error deleting sent note:", err);
                             alert("Failed to delete note");
                           }
                         }}
@@ -243,6 +247,7 @@ const Profile = () => {
                           setEditingNoteId(null);
                           setEditingContent("");
                         } catch (err) {
+                          console.error("Error updating sent note:", err);
                           alert("Update failed");
                         }
                       }}
@@ -325,6 +330,7 @@ const Profile = () => {
                             prev.filter((n) => n.id !== note.id),
                           );
                         } catch (err) {
+                          console.error("Error deleting received note:", err);
                           alert("Failed to delete note");
                         }
                       }}
