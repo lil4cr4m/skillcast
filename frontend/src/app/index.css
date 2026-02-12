@@ -1,39 +1,110 @@
+/**
+ * SKILLCAST GLOBAL STYLES - Neo-Brutalism Design System
+ * 
+ * This file establishes the core visual language for the SkillCast application.
+ * 
+ * DESIGN PHILOSOPHY:
+ * - Neo-brutalism: Bold, chunky, high-contrast design
+ * - Heavy borders, dramatic shadows, bold typography
+ * - Bright accent colors on neutral base
+ * - Prioritizes readability and impact over subtlety
+ * 
+ * TAILWIND LAYERS:
+ * 1. Base - HTML element defaults and typography
+ * 2. Components - Reusable component styles  
+ * 3. Utilities - Helper classes for one-off styling
+ * 
+ * CUSTOM DESIGN TOKENS:
+ * - Colors: ink (black), offwhite (light gray), yellow, violet, green
+ * - Typography: Font weight emphasis, tight tracking, uppercase
+ * - Shadows: "Brutal" drop shadows for depth
+ * - Borders: Thick borders for definition
+ * 
+ * TO EXTEND:
+ * - Add new component classes in @layer components
+ * - Define new utilities in @layer utilities  
+ * - Modify base styles affect global elements
+ * - Color tokens defined in tailwind.config.js
+ */
+
+/* ==================== TAILWIND CORE ==================== */
+/* Import Tailwind's base styles, component classes, and utility classes */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ==================== BASE LAYER ==================== */
+/* Global HTML element styles and typography system */
 @layer base {
+  /* 🎨 BODY DEFAULTS */
+  /* Sets the foundation for the entire application */
   body {
-    @apply bg-offwhite text-ink antialiased font-sans;
+    @apply bg-offwhite      /* Light gray background for warmth */
+           text-ink         /* Black text for maximum contrast */
+           antialiased      /* Smooth font rendering */
+           font-sans; /* Sans-serif font stack (Public Sans) */
   }
+
+  /* 📝 TYPOGRAPHY HIERARCHY */
+  /* All headings follow neo-brutalist principles */
   h1,
   h2,
   h3 {
-    @apply font-black tracking-tighter uppercase italic leading-none;
+    @apply font-black        /* Maximum font weight for impact */
+           tracking-tighter  /* Condensed letter spacing */
+           uppercase         /* All caps for emphasis */
+           italic           /* Slanted for dynamism */
+           leading-none; /* Tight line height for compactness */
   }
 }
 
+/* ==================== COMPONENTS LAYER ==================== */
+/* Reusable component styles for common UI patterns */
 @layer components {
-  /* Standardized input field for all forms */
+  /* 📝 BRUTAL INPUT STYLE */
+  /* Standardized form input with neo-brutalist aesthetics */
+  /* Used across all forms for consistency */
   .input-brutal {
-    @apply w-full border-3 border-ink p-4 rounded-xl focus:outline-none focus:bg-yellow/10 transition-all font-bold shadow-brutal-sm focus:shadow-brutal;
+    @apply w-full            /* Full width of container */
+           border-3          /* Thick border (3px) */
+           border-ink        /* Black border color */
+           p-4              /* Generous padding for touch targets */
+           rounded-xl       /* Soft rounded corners */
+           focus:outline-none        /* Remove browser focus outline */
+           focus:bg-yellow/10        /* Subtle yellow highlight on focus */
+           transition-all            /* Smooth transitions for interactions */
+           font-bold                 /* Bold text for readability */
+           shadow-brutal-sm          /* Small brutal shadow */
+           focus:shadow-brutal; /* Enhanced shadow on focus */
   }
 }
 
+/* ==================== UTILITIES LAYER ==================== */
+/* Helper classes for specific styling needs */
 @layer utilities {
-  /* Ensure small text stays high-contrast */
+  /* 📜 TEXT CONTRAST ENFORCEMENT */
+  /* Ensure small text maintains readability */
   .text-sm {
-    @apply text-ink;
+    @apply text-ink; /* Force black color for small text */
   }
 
-  /* Brutalist broadcast utilities */
+  /* 🎨 BRUTALIST DESIGN UTILITIES */
+
+  /* BORDER UTILITY */
+  /* Creates thick, prominent borders characteristic of brutalist design */
   .border-ink {
-    border-width: 0.25rem;
-    border-color: theme("colors.ink");
-    border-style: solid;
+    border-width: 0.25rem; /* 4px thick border */
+    border-color: theme("colors.ink"); /* Use theme's ink color */
+    border-style: solid; /* Solid line style */
   }
 
+  /* INTERACTION EFFECT */
+  /* Hover effect that simulates lifting elements off the page */
+  /* Creates dynamic, engaging interactions */
   .hover-lift {
-    @apply hover:-translate-x-1 hover:-translate-y-1 hover:shadow-none transition-all;
+    @apply hover:-translate-x-1      /* Move left 4px */
+           hover:-translate-y-1      /* Move up 4px */ 
+           hover:shadow-none         /* Remove shadow when "lifted" */
+           transition-all; /* Smooth animation */
   }
 }

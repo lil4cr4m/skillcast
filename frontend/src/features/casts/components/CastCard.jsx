@@ -1,3 +1,37 @@
+/**
+ * SKILLCAST CAST CARD - Individual Cast Display & Interaction Component
+ *
+ * This is a comprehensive card component that displays individual skill-sharing posts ("casts")
+ * with full interaction capabilities including viewing, editing, crediting, and joining.
+ *
+ * KEY FEATURES:
+ * 1. CAST INFORMATION DISPLAY - Title, description, creator, skill, credit total
+ * 2. LIVE STATUS INDICATOR - Visual indicator for active casts
+ * 3. JOIN FUNCTIONALITY - Direct link to meeting/video call
+ * 4. CREDIT SYSTEM - Allow users to give credit/appreciation to casters
+ * 5. OWNER CONTROLS - Edit and delete functionality for cast creators
+ * 6. ADMIN CONTROLS - Admin users can manage any cast
+ * 7. RESPONSIVE DESIGN - Adapts to different screen sizes
+ * 8. ACCESSIBILITY - Semantic HTML and clear visual hierarchy
+ *
+ * USER INTERACTIONS BY ROLE:
+ * - GUEST/VISITOR: View cast info, join cast (if link available)
+ * - LOGGED-IN USER: Everything above + give credit via heart button
+ * - CAST OWNER: Everything above + edit/delete controls (no credit form)
+ * - ADMIN: Full access to all cast management functions
+ *
+ * EDITING FEATURES:
+ * - Inline edit mode with form validation
+ * - Real-time form updates with controlled inputs
+ * - Cancel functionality to revert changes
+ * - Loading states for user feedback during saves
+ *
+ * Props:
+ * @param {Object} cast - Cast data object from API
+ * @param {Function} onUpdate - Callback when cast is updated
+ * @param {Function} onDelete - Callback when cast is deleted
+ */
+
 import React, { useState } from "react";
 import { useAuth } from "../../auth/context/AuthContext";
 import { Button } from "../../../shared/ui/Button";
@@ -13,21 +47,50 @@ import {
   X,
 } from "lucide-react";
 
+/**
+ * CastCard Component - Interactive Cast Display
+ *
+ * STATE MANAGEMENT:
+ * - showCreditForm: Toggle visibility of credit giving interface
+ * - editMode: Toggle between view and edit modes for cast owners
+ * - saving/deleting: Loading states for async operations
+ * - formData: Controlled form inputs for cast editing
+ *
+ * PERMISSION SYSTEM:
+ * - isOwner: Cast creator or admin can edit/delete
+ * - Regular users: Can view and credit casts
+ * - Unauthenticated: Can view casts only
+ */
 const CastCard = ({ cast, onUpdate, onDelete }) => {
+  // 🔐 AUTHENTICATION & PERMISSIONS
   const { user } = useAuth();
-  const [showCreditForm, setShowCreditForm] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [deleting, setDeleting] = useState(false);
+
+  // 🎛️ UI STATE MANAGEMENT
+  const [showCreditForm, setShowCreditForm] = useState(false); // Credit interface visibility
+  const [editMode, setEditMode] = useState(false); // Edit form visibility
+  const [saving, setSaving] = useState(false); // Save operation loading
+  const [deleting, setDeleting] = useState(false); // Delete operation loading
+
+  // 📝 EDIT FORM STATE
+  // Controlled inputs for inline cast editing
   const [formData, setFormData] = useState({
     title: cast.title,
     description: cast.description,
     meeting_link: cast.meeting_link,
   });
 
-  // Owners (or admins) get edit/delete controls and skip credit form.
+  // 🔐 PERMISSION CHECK
+  // Cast owners and admins get full management capabilities
   const isOwner =
     user?.id === cast.creator_id || (user && user.role === "admin");
+
+  /**
+   * Delete Handler - Remove Cast
+   *
+   * SECURITY: Only owners/admins can delete
+   * UX: Confirmation dialog prevents accidental deletion
+   * OPTIMISTIC: Immediately updates parent component via callback
+   */
 
   const handleDelete = async () => {
     if (!window.confirm("End this cast?")) return;

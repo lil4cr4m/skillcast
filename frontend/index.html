@@ -1,17 +1,43 @@
 <!doctype html>
+<!--
+  SKILLCAST FRONTEND - Main HTML Entry Point
+  
+  This is the main HTML template for the SkillCast React application.
+  Key features:
+  - Neo-brutalism design system with custom fonts
+  - Responsive viewport configuration
+  - React app root mounting point
+  - Vite build system integration
+  
+  To modify:
+  - Update title/meta tags for SEO
+  - Add new external fonts or resources
+  - Modify body styling (currently light gray background)
+-->
 <html lang="en">
   <head>
+    <!-- Standard meta tags for modern web app -->
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Passion Pulse | Neo-Brutalism Edition</title>
+
+    <!-- App branding - Update this for different environments -->
+    <title>SkillCast | Learn, Share, Grow</title>
+
+    <!-- Typography: Neo-brutalism design uses bold, impactful fonts -->
+    <!-- Archivo Black: Heavy headings, Public Sans: Clean body text -->
     <link
       href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Public+Sans:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
   </head>
+
+  <!-- Main body with light background - all styling handled by Tailwind -->
   <body class="bg-[#F0F0F0]">
+    <!-- React application mounts here - this div becomes the entire app -->
     <div id="root"></div>
+
+    <!-- Vite entry point - loads main React app with hot reload in development -->
     <script type="module" src="/src/app/main.jsx"></script>
   </body>
 </html>

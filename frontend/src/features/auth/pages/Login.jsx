@@ -1,63 +1,201 @@
+/**
+ * SKILLCAST LOGIN PAGE - Complete Authentication Interface
+ *
+ * This is a comprehensive authentication component that handles multiple scenarios:
+ * 1. User login (existing accounts)
+ * 2. User registration (new accounts)
+ * 3. User logout (when already authenticated)
+ * 4. Redirect handling (return to intended page after login)
+ *
+ * KEY FEATURES:
+ * - DUAL MODE: Toggle between login and registration
+ * - ALREADY AUTHENTICATED: Shows logout option if user already logged in
+ * - FORM VALIDATION: Required fields with error handling
+ * - REDIRECT LOGIC: Returns users to their intended destination
+ * - NEO-BRUTALIST UI: Bold, animated design consistent with app theme
+ * - ACCESSIBILITY: Form labels, semantic HTML, keyboard navigation
+ *
+ * AUTHENTICATION STATES:
+ * 1. Logged Out + Login Mode: Email/password fields + login button
+ * 2. Logged Out + Register Mode: Username/name/email/password + registration
+ * 3. Logged In: Session active message + logout button + nav to home
+ *
+ * FORM HANDLING:
+ * - Uses controlled components for all inputs
+ * - Real-time validation and error display
+ * - Graceful error handling with user-friendly messages
+ *
+ * NAVIGATION FLOW:
+ * - After successful login: redirect to intended page or home
+ * - After registration: switch to login mode with success message
+ * - After logout: stay on login page
+ *
+ * TO EXTEND:
+ * - Add password reset functionality
+ * - Implement OAuth providers (Google, GitHub, etc.)
+ * - Add remember me checkbox
+ * - Implement account verification flow
+ */
+
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+
+// AUTHENTICATION CONTEXT
+// Access global auth state and login/logout methods
 import { useAuth } from "../context/AuthContext";
+
+// API CLIENT
+// For registration API calls (login handled by AuthContext)
 import api from "../../../shared/api/axios";
+
+// UI COMPONENTS
+// Consistent button styling throughout app
 import { Button } from "../../../shared/ui/Button";
+
+// ICONS
+// Lucide React icons for visual enhancement and accessibility
 import {
-  LogIn,
-  UserPlus,
-  Mail,
-  Lock,
-  User as UserIcon,
-  Zap,
-  LogOut,
-  ShieldCheck,
+  LogIn, // Login button icon
+  UserPlus, // Registration button icon
+  Mail, // Email input icon
+  Lock, // Password input icon
+  User as UserIcon, // Username/name input icon
+  Zap, // Decorative animated icon
+  LogOut, // Logout button icon
+  ShieldCheck, // Authentication success icon
 } from "lucide-react";
 
+/**
+ * Login Component - Multi-state Authentication Interface
+ *
+ * COMPONENT ARCHITECTURE:
+ * - STATE MANAGEMENT: React hooks for form data, UI state, error handling
+ * - NAVIGATION: React Router for programmatic navigation and redirect logic
+ * - AUTHENTICATION: Context integration for global auth state management
+ *
+ * RENDERING LOGIC:
+ * 1. If user already authenticated → show logout interface
+ * 2. If user not authenticated → show login/register form
+ * 3. Toggle between login and registration modes
+ * 4. Display errors and loading states appropriately
+ *
+ * FORM DATA STRUCTURE:
+ * - email: Required for both login and registration
+ * - password: Required for both login and registration
+ * - username: Required only for registration (unique identifier)
+ * - name: Optional for registration (display name)
+ */
 const Login = () => {
-  // 1. AUTH STATE: Destructure 'user' to check if already logged in, and 'logout' function
+  // 🔐 AUTHENTICATION STATE
+  // Access current user and auth methods from global context
   const { user: activeUser, login, logout } = useAuth();
+
+  // 🔄 UI STATE MANAGEMENT
+  // Toggle between login and registration modes
   const [isLogin, setIsLogin] = useState(true);
+
+  // ❌ ERROR HANDLING
+  // Display user-friendly error messages for failed auth attempts
   const [error, setError] = useState("");
+
+  // 📝 FORM DATA STATE
+  // Controlled form inputs for all authentication fields
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    username: "",
-    name: "",
+    email: "", // Required for login/register
+    password: "", // Required for login/register
+    username: "", // Required for register only
+    name: "", // Optional for register
   });
 
+  // 🧭 NAVIGATION SETUP
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 2. REDIRECT LOGIC
+  // 🔄 REDIRECT LOGIC
+  // After successful login, return user to their intended destination
+  // Defaults to home page if no specific destination was intended
+  // Defaults to home page if no specific destination was intended
   const from = location.state?.from?.pathname || "/";
 
-  // 3. SUBMIT LOGIC: Login/Register
+  /**
+   * Form Submission Handler - Login or Registration
+   *
+   * DUAL-PURPOSE HANDLER:
+   * - LOGIN MODE: Authenticate existing user with email/password
+   * - REGISTER MODE: Create new user account with full form data
+   *
+   * LOGIN FLOW:
+   * 1. Call login method from AuthContext
+   * 2. On success: navigate to intended destination
+   * 3. On failure: display error message to user
+   *
+   * REGISTRATION FLOW:
+   * 1. Send registration data to backend API
+   * 2. On success: switch to login mode with success message
+   * 3. On failure: display error message to user
+   *
+   * ERROR HANDLING:
+   * - Network errors, validation errors, duplicate accounts
+   * - User-friendly error messages in app's style
+   */
   const handleSubmit = async (e) => {
+    // 🚫 PREVENT DEFAULT FORM SUBMISSION
     e.preventDefault();
+
+    // 🧹 CLEAR PREVIOUS ERRORS
     setError("");
+
     try {
       if (isLogin) {
+        // 🔑 LOGIN FLOW
+        // Use AuthContext login method for consistent token handling
         await login(formData.email, formData.password);
+
+        // ✅ LOGIN SUCCESS - REDIRECT TO INTENDED DESTINATION
+        // replace: true prevents back button from returning to login
         navigate(from, { replace: true });
       } else {
+        // 📝 REGISTRATION FLOW
+        // Direct API call since registration doesn't need immediate auth
         await api.post("/auth/register", formData);
+
+        // ✅ REGISTRATION SUCCESS - SWITCH TO LOGIN MODE
         setIsLogin(true);
         alert("ACCOUNT_INITIALIZED: Please log in.");
       }
     } catch (err) {
+      // ❌ AUTHENTICATION FAILED
+      // Display user-friendly error message in app's style
       setError(
         err.response?.data?.error || "ACCESS_DENIED: Check credentials.",
       );
     }
   };
 
-  // 4. LOGOUT LOGIC: Only triggered if user is already logged in
+  /**
+   * Logout Handler - Terminate Active Session
+   *
+   * LOGOUT FLOW:
+   * 1. Call logout method from AuthContext
+   * 2. Clear all local storage and user state
+   * 3. Navigate to login page
+   * 4. Handle any logout errors gracefully
+   *
+   * SECURITY CONSIDERATIONS:
+   * - Always clear tokens even if server request fails
+   * - Redirect to login page to prevent unauthorized access
+   */
   const handleLogoutAction = async () => {
     try {
-      await logout(); // Calls your AuthContext logout logic
+      // 🚪 LOGOUT VIA AUTH CONTEXT
+      // Handles token cleanup and server notification
+      await logout();
+
+      // 🧭 REDIRECT TO LOGIN
       navigate("/login");
     } catch (err) {
+      // ❌ LOGOUT ERROR (rare)
+      // Even if logout fails, user should see what happened
       setError("LOGOUT_FAILED: System error.");
     }
   };

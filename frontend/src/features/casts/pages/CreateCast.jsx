@@ -49,7 +49,7 @@ const CreateCast = () => {
       <div className="bg-white border-3 border-ink p-8 md:p-12 rounded-[2.5rem] shadow-brutal-lg">
         <header className="mb-10 text-center md:text-left">
           <h1 className="text-5xl mb-2 italic">
-            Start a <span className="text-pink">Cast</span>
+            Start a <span className="text-violet">Cast</span>
           </h1>
           <p className="font-black text-ink/50 uppercase text-xs tracking-widest">
             Launch a new SkillCast
@@ -105,6 +105,7 @@ const CreateCast = () => {
               required
               className="input-brutal"
               placeholder="https://meet.google.com/..."
+              defaultValue="https://"
               onChange={(e) =>
                 setFormData({ ...formData, meeting_link: e.target.value })
               }
