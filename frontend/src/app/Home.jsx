@@ -30,7 +30,7 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, Award } from "lucide-react";
 
 // CONTEXT & HOOKS
 // Access global authentication state (user data, login status)
@@ -88,38 +88,48 @@ const Home = () => {
         aria-label="User actions and stats"
       >
         {/* 🎨 IDENTITY CARD - Neo-brutalism design with heavy shadows and borders */}
-        <div className="bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          {/* 🏷️ USER HEADER - Role and username display */}
-          <h1 className="text-3xl font-black uppercase tracking-tighter mb-4">
-            {/* Dynamic role display based on user permissions */}
-            {user?.role === "admin" ? "ADMIN" : "USER"}
-            {/* Username with fallback for non-authenticated users */}
-            <span className="text-violet italic">
-              {user?.username || "Guest"}
-            </span>
-          </h1>
-
-          {/* 💰 CREDIT BALANCE - Gamification element showing user's earned credits */}
-          <div className="bg-yellow border-4 border-black p-4 mb-4">
-            <p className="text-[0.6rem] font-black uppercase tracking-widest text-black/60">
-              Total_Credit
+        <div className="bg-white border-4 border-ink p-6 shadow-brutal-lg space-y-4">
+          {/* 🏷️ USER ROLE - Stacked display */}
+          <div>
+            <p className="text-[0.6rem] font-black uppercase tracking-widest text-black/60 mb-1">
+              Role
             </p>
-            {/* Large credit number for visual impact */}
-            <p className="text-4xl font-black leading-none">
-              {user?.credit || 0}
+            <p className="text-2xl font-black uppercase tracking-tighter">
+              {user?.role === "admin" ? "ADMIN" : "USER"}
             </p>
           </div>
 
-          {/* ✨ QUICK CREATE - Primary call-to-action for content creation */}
-          <Link to="/create">
-            <Button
-              variant="neon"
-              className="w-full py-4 text-lg text-center justify-center"
-            >
-              START_CASTING
-            </Button>
-          </Link>
+          {/* 👤 USERNAME - Stacked display with @ symbol */}
+          <div>
+            <p className="text-[0.6rem] font-black uppercase tracking-widest text-black/60 mb-1">
+              Username
+            </p>
+            <p className="text-xl font-black text-pink italic">
+              @{user?.username || "Guest"}
+            </p>
+          </div>
         </div>
+
+        {/* 💰 TOTAL CREDIT CARD - Separated card with yellow styling */}
+        <div className="bg-yellow border-3 border-ink p-6 rounded-3xl shadow-brutal flex flex-col items-center text-center gap-3">
+          <Award size={32} />
+          <div className="text-5xl font-black tabular-nums leading-tight text-center">
+            {user?.credit || 0}
+          </div>
+          <div className="font-black text-[10px] uppercase tracking-widest italic opacity-60 text-center">
+            Total_Credit
+          </div>
+        </div>
+
+        {/* ✨ QUICK CREATE - Primary call-to-action for content creation */}
+        <Link to="/create" className="block">
+          <Button
+            variant="neon"
+            className="w-full py-4 text-lg text-center justify-center"
+          >
+            START_CASTING
+          </Button>
+        </Link>
       </aside>
 
       {/* ==================== CENTER: MAIN CONTENT FEED ==================== */}
@@ -138,7 +148,7 @@ const Home = () => {
             {/* 📡 LIVE INDICATOR - Animated dot to show real-time activity */}
             <div className="flex gap-[0.5rem] items-center">
               {/* Pulsing green dot animation */}
-              <span className="w-3 h-3 rounded-full bg-green animate-pulse border-2 border-ink" />
+              <span className="w-3 h-3 rounded-full bg-neon animate-pulse border-2 border-ink" />
               {/* Status label with micro-typography */}
               <span className="text-[0.6rem] xl:text-[0.625rem] font-black uppercase tracking-widest leading-none">
                 Casting Now
@@ -184,9 +194,9 @@ const Home = () => {
         aria-label="Top casters leaderboard"
       >
         {/* 🎨 LEADERBOARD CARD with yellow header and white content area */}
-        <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+        <div className="bg-offwhite border-4 border-ink shadow-brutal-lg overflow-hidden">
           {/* 🏷️ LEADERBOARD HEADER with bright yellow accent */}
-          <div className="p-[1.5rem] border-b-4 border-black bg-yellow">
+          <div className="p-[1.5rem] border-b-4 border-ink bg-yellow">
             <h2 className="text-[1.25rem] font-black uppercase tracking-tighter leading-none">
               Top_Casters
             </h2>

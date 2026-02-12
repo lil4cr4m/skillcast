@@ -100,13 +100,14 @@ const CreateCast = () => {
           {/* MEETING LINK: Essential for the 'Join' logic */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <LinkIcon size={14} /> Cast Link (Zoom/Jitsi/Meet)
+              <LinkIcon size={14} /> Cast Link
+              (Discord/Meet/Twitch/Youtube/Zoom/etc.)
             </label>
             <input
               type="url"
               required
               className="input-brutal"
-              placeholder="https://meet.google.com/..."
+              placeholder="https://meeting.link/your-cast"
               defaultValue="https://"
               onChange={(e) =>
                 setFormData({ ...formData, meeting_link: e.target.value })
@@ -133,7 +134,7 @@ const CreateCast = () => {
             <Button
               type="submit"
               variant="violet"
-              className="w-full py-5 text-xl shadow-brutal-xs"
+              className="w-full py-5 text-xl shadow-brutal"
               disabled={loading}
             >
               {loading ? "SYNCING..." : "LAUNCH BROADCAST"}

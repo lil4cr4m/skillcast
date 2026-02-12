@@ -24,7 +24,7 @@ const Leaderboard = () => {
         <Link
           key={leader.id}
           to={`/profile/${leader.id}`}
-          className="group grid grid-cols-[1.75rem_1fr_auto] items-center gap-[0.6rem] p-[1rem] hover:bg-yellow/20 transition-all min-w-0"
+          className="group grid grid-cols-[1.75rem_1fr_auto] items-center gap-[0.6rem] p-[1rem] hover:bg-yellow-muted/20 transition-all min-w-0"
         >
           <span className="font-black italic text-black/40 text-[1rem] xl:text-[1.125rem] leading-none text-center">
             {index + 1}

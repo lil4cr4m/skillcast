@@ -108,10 +108,10 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-offwhite border-b-3 border-ink p-4">
+    <nav className="sticky top-0 z-50 bg-offwhite border-t-3 border-b-3 border-ink p-4">
       {/* 🧭 MAIN NAVIGATION CONTAINER */}
       {/* Sticky positioning keeps navbar visible during scroll  */}
-      {/* Heavy bottom border creates separation from page content */}
+      {/* Heavy borders top and bottom create separation from content */}
       {/* 📱 RESPONSIVE CONTENT WRAPPER */}
       {/* Max width prevents nav from becoming too wide on large screens */}
       <div className="max-w-[1400px] mx-auto flex justify-between items-center">
@@ -173,8 +173,8 @@ export const Navbar = () => {
 
               {/* 🚪 LOGOUT BUTTON */}
               <Button
-                variant="cyan"
-                className="py-2 text-xs px-4 shadow-brutal-xs"
+                variant="danger"
+                className="py-2 text-xs px-4 shadow-brutal"
                 onClick={handleLogout}
               >
                 <LogOut size={16} className="mr-1" /> Logout
@@ -186,8 +186,8 @@ export const Navbar = () => {
               {/* 🔑 LOGIN BUTTON - Directs to authentication page */}
               <Link to="/login">
                 <Button
-                  variant="cyan"
-                  className="py-2 text-xs px-6 shadow-brutal-xs"
+                  variant="danger"
+                  className="py-2 text-xs px-6 shadow-brutal"
                 >
                   <LogIn size={16} className="mr-1" /> Login
                 </Button>

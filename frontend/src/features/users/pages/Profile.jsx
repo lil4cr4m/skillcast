@@ -88,7 +88,7 @@ const Profile = () => {
   return (
     <div className="max-w-5xl mx-auto px-6 md:px-12 py-6 md:py-12 space-y-10">
       <div className="bg-white border-3 border-ink p-[2.25rem] md:p-[3rem] rounded-[2.5rem] shadow-brutal-lg flex flex-col md:flex-row md:flex-nowrap items-center gap-[2.5rem] md:gap-[3rem] relative">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan/10 -mr-16 -mt-16 rounded-full border-3 border-ink" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-muted/10 -mr-16 -mt-16 rounded-full border-3 border-ink" />
 
         <div className="flex flex-col items-center gap-3">
           <div className="h-32 w-32 md:h-40 md:w-40 bg-pink border-3 border-ink rounded-full flex items-center justify-center shadow-brutal shrink-0 overflow-hidden">
@@ -127,7 +127,7 @@ const Profile = () => {
           <Button
             variant="neon"
             onClick={() => navigate("/settings/profile")}
-            className="flex items-center gap-2 py-3 px-6 shadow-brutal-xs w-full justify-center"
+            className="flex items-center gap-2 py-3 px-6 shadow-brutal w-full justify-center"
           >
             <Edit3 size={18} /> EDIT_SIGNAL
           </Button>
@@ -197,7 +197,7 @@ const Profile = () => {
                 {sentNotes.map((note) => (
                   <div
                     key={note.id}
-                    className="border-3 border-ink rounded-2xl p-5 bg-white shadow-brutal-sm hover:shadow-none transition-all flex flex-col gap-3"
+                    className="border-3 border-ink rounded-2xl p-5 bg-white shadow-brutal hover:shadow-none transition-all flex flex-col gap-3"
                   >
                     {/* Header: Context & Metadata */}
                     <div className="flex justify-between items-start border-b-2 border-ink/10 pb-2">
@@ -280,7 +280,7 @@ const Profile = () => {
                         </p>
                         <div className="flex gap-2">
                           <Button
-                            variant="cyan"
+                            variant="danger"
                             className="px-3 py-2"
                             onClick={() => {
                               setEditingNoteId(note.id);
@@ -290,7 +290,7 @@ const Profile = () => {
                             <PencilLine size={14} />
                           </Button>
                           <Button
-                            variant="cyan"
+                            variant="danger"
                             className="px-3 py-2"
                             onClick={async () => {
                               if (!window.confirm("Delete sent note?")) return;
@@ -337,7 +337,7 @@ const Profile = () => {
                 {receivedNotes.map((note) => (
                   <div
                     key={note.id}
-                    className="border-3 border-ink rounded-2xl p-5 bg-white shadow-brutal-sm hover:shadow-none transition-all flex flex-col gap-3"
+                    className="border-3 border-ink rounded-2xl p-5 bg-white shadow-brutal flex flex-col gap-3"
                   >
                     {/* Header: Context & Metadata */}
                     <div className="flex justify-between items-start border-b-2 border-ink/20 pb-2">
@@ -373,7 +373,7 @@ const Profile = () => {
                         </Link>
                       </p>
                       <Button
-                        variant="cyan"
+                        variant="danger"
                         className="px-3 py-2"
                         onClick={async () => {
                           if (

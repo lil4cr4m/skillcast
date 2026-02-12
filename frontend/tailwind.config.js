@@ -40,31 +40,88 @@ export default {
   // 📝 CONTENT PATHS - Where Tailwind should look for class usage
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
+  // 🔒 SAFELIST - Ensure custom color variants are always included
+  safelist: [
+    // Background colors - using base color names for DEFAULT variants
+    "bg-yellow",
+    "bg-violet",
+    "bg-pink",
+    "bg-cyan",
+    "bg-danger",
+    "bg-neon",
+    "bg-yellow-muted",
+    "bg-violet-muted",
+    "bg-pink-muted",
+    "bg-cyan-muted",
+    "bg-danger-muted",
+    "bg-neon-muted",
+    // Text colors - using base color names for DEFAULT variants
+    "text-yellow",
+    "text-violet",
+    "text-pink",
+    "text-cyan",
+    "text-danger",
+    "text-neon",
+    "text-yellow-muted",
+    "text-violet-muted",
+    "text-pink-muted",
+    "text-cyan-muted",
+    "text-danger-muted",
+    "text-neon-muted",
+  ],
+
   theme: {
     extend: {
       // 🎨 COLOR PALETTE - Neo-brutalism Color System
       // Each color serves specific UI purposes and emotional responses
       colors: {
-        // ⚪ BASE COLORS
-        offwhite: "#F8F8F8", // Main background - soft, not harsh white
-        ink: "#000000", // Primary text and borders - pure black for contrast
+        // ⚪ THE CANVAS
+        offwhite: "#F4F4F4", // Slightly more "industrial" grey-white
+        ink: "#121212", // "Rich Black" - feels more premium than #000
 
-        // 🟡 ACCENT COLORS - Each color has semantic meaning
-        yellow: "#FFD100", // Credit/rewards - optimistic, valuable
-        violet: "#A358FF", // Primary brand - creative, energetic
-        green: "#00FF85", // Success/live status - vibrant, active
-        pink: "#FF3BFF", // Alerts/warnings - attention-getting
-        cyan: "#00E0FF", // Secondary actions - cool, supporting
+        // 🟣 PRIMARY BRAND (Creative/Energetic)
+        violet: {
+          DEFAULT: "#8B31FF", // Deepened for better white-text contrast
+          muted: "#D9BFFF", // For soft card backgrounds
+        },
+
+        // 🟡 REWARDS & CREDIT (Optimistic)
+        yellow: {
+          DEFAULT: "#FFD100", // "Cyber Yellow"
+          muted: "#FFF2A1",
+        },
+
+        // 🟢 LIVE STATUS (Vibrant/Active)
+        neon: {
+          DEFAULT: "#39FF14", // "Electric Lime"
+          muted: "#BCFFAC",
+        },
+
+        // 💗 ALERTS & GRATITUDE (Attention)
+        pink: {
+          DEFAULT: "#FF2ECC", // "Hot Magenta"
+          muted: "#FFB3EB",
+        },
+
+        // 🔵 SYSTEM ACTIONS (Secondary/Links)
+        cyan: {
+          DEFAULT: "#00F0FF", // "Electric Cyan"
+          muted: "#A1F9FF",
+        },
+
+        // 🔴 DESTRUCTIVE ACTIONS (Delete/Logout)
+        danger: {
+          DEFAULT: "#FF4D4D", // High-visibility red
+          muted: "#FFB3B3",
+        },
       },
 
       // 🏗️ SHADOW SYSTEM - "Brutal" depth system
       // Creates the characteristic neo-brutalist depth effect
       boxShadow: {
-        // Standard shadow sizes with black offset shadows
-        "brutal-xs": "2px 2px 0px 0px rgba(0,0,0,1)", // Extra small - buttons
-        "brutal-sm": "4px 4px 0px 0px rgba(0,0,0,1)", // Small elements
-        brutal: "8px 8px 0px 0px rgba(0,0,0,1)", // Default cards/buttons
-        "brutal-lg": "12px 12px 0px 0px rgba(0,0,0,1)", // Large modals/panels
+        brutal: "4px 4px 0px 0px rgba(18, 18, 18, 1)",
+        "brutal-lg": "8px 8px 0px 0px rgba(18, 18, 18, 1)",
+        "brutal-xl": "12px 12px 0px 0px rgba(18, 18, 18, 1)",
       },
 
       // 📏 SPACING SYSTEM - 8pt Grid for Consistency

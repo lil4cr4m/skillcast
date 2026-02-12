@@ -62,23 +62,26 @@ export const Button = ({
   // Colors are defined in tailwind.config.js as custom theme colors
   const variants = {
     // ⚠️ YELLOW - Default, attention-getting, warnings
-    yellow: "bg-yellow text-ink hover:bg-yellow/90",
+    yellow: "bg-yellow text-ink hover:opacity-90",
 
     // 💜 VIOLET - Primary brand color, main CTAs
-    violet: "bg-violet text-white hover:bg-violet/90",
+    violet: "bg-violet text-white hover:opacity-90",
 
     // 💗 PINK - Destructive actions, errors
-    pink: "bg-pink text-white hover:bg-pink/90",
+    pink: "bg-pink text-white hover:opacity-90",
 
     // 🩵 CYAN - Secondary actions, alternatives
-    cyan: "bg-cyan text-ink hover:bg-cyan/90",
+    cyan: "bg-cyan text-ink hover:opacity-90",
 
-    // 🟢 NEON (GREEN) - High priority actions, create content
+    // 🔴 DANGER - Destructive actions, delete, logout
+    danger: "bg-danger text-white hover:opacity-90",
+
+    // 🟢 NEON - High priority actions, create content
     // Named "neon" for the vibrant, attention-getting quality
-    neon: "bg-green text-ink hover:bg-green/90",
+    neon: "bg-neon text-ink hover:opacity-90",
 
     // ⚪ OUTLINE - Subtle, secondary options
-    outline: "bg-white text-ink hover:bg-yellow/10",
+    outline: "bg-offwhite text-ink hover:bg-violet-muted/20",
   };
 
   return (
@@ -90,7 +93,7 @@ export const Button = ({
 
         // 🎭 BRUTALIST SHADOW & INTERACTION
         // Raised shadow effect that flattens on hover, then fully presses on active
-        "shadow-brutal-xs hover:shadow-none active:translate-x-[0.125rem] active:translate-y-[0.125rem] active:shadow-none",
+        "shadow-brutal hover:shadow-none active:translate-x-[0.125rem] active:translate-y-[0.125rem] active:shadow-none",
 
         // ✍️ TYPOGRAPHY & LAYOUT
         // Bold, uppercase text with tight tracking, flexbox for icons

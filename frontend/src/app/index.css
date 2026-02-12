@@ -74,8 +74,8 @@
            focus:bg-yellow/10        /* Subtle yellow highlight on focus */
            transition-all            /* Smooth transitions for interactions */
            font-bold                 /* Bold text for readability */
-           shadow-brutal-sm          /* Small brutal shadow */
-           focus:shadow-brutal; /* Enhanced shadow on focus */
+           shadow-brutal             /* Brutal shadow */
+           focus:shadow-brutal-lg; /* Enhanced shadow on focus */
   }
 }
 

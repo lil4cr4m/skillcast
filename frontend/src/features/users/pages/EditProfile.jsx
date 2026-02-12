@@ -145,7 +145,7 @@ const EditProfile = () => {
           <Button
             type="submit"
             variant="cyan"
-            className="w-full py-4 text-lg shadow-brutal-xs"
+            className="w-full py-4 text-lg shadow-brutal"
             disabled={loading}
           >
             <Save size={20} className="mr-2" />
@@ -170,7 +170,7 @@ const EditProfile = () => {
           </div>
         )}
         {passStatus.message && (
-          <div className="mb-4 p-4 bg-green text-ink border-3 border-ink rounded-xl font-black text-xs uppercase">
+          <div className="mb-4 p-4 bg-neon text-ink border-3 border-ink rounded-xl font-black text-xs uppercase">
             {passStatus.message}
           </div>
         )}
@@ -231,7 +231,7 @@ const EditProfile = () => {
           <Button
             type="submit"
             variant="cyan"
-            className="w-full py-4 text-lg shadow-brutal-xs"
+            className="w-full py-4 text-lg shadow-brutal"
             disabled={pwLoading}
           >
             <Save size={20} className="mr-2" />

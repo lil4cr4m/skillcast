@@ -123,20 +123,20 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
   };
 
   return (
-    <div className="bg-white border-4 border-black p-6 shadow-[10px_10px_0px_0px_black] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all flex flex-col h-full">
+    <div className="bg-white border-4 border-ink p-6 shadow-brutal hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all flex flex-col h-full">
       <div className="flex justify-between items-start mb-4">
-        <span className="bg-black text-white px-2 py-1 text-[0.6rem] font-black uppercase tracking-widest">
+        <span className="bg-ink text-offwhite px-2 py-1 text-[0.6rem] font-black uppercase tracking-widest">
           {cast.skill?.channel || "GENERAL"} // CHANNEL
         </span>
         {cast.is_live && (
-          <div className="h-3 w-3 bg-red-500 rounded-full animate-pulse border-2 border-black" />
+          <div className="h-3 w-3 bg-danger rounded-full animate-pulse border-2 border-ink" />
         )}
       </div>
 
       <h3 className="text-2xl font-black uppercase leading-none mb-2">
         {cast.title}
       </h3>
-      <p className="text-sm font-bold text-black/70 mb-6 line-clamp-3">
+      <p className="text-sm font-bold text-ink/70 mb-6 line-clamp-3">
         {cast.description}
       </p>
 
@@ -145,20 +145,20 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
           to={`/profile/${cast.creator_id}`}
           className="flex items-center gap-3 hover:opacity-80 transition-opacity"
         >
-          <div className="w-10 h-10 bg-pink border-2 border-black rounded-full flex items-center justify-center shadow-[4px_4px_0px_0px_black]">
+          <div className="w-10 h-10 bg-pink border-2 border-ink rounded-full flex items-center justify-center shadow-brutal">
             <UserIcon size={18} className="text-white" />
           </div>
           <div className="leading-tight">
             <div className="text-pink italic">
               @{cast.username || "anonymous"}
             </div>
-            <div className="text-black/60 text-[0.65rem] tracking-widest">
+            <div className="text-ink/60 text-[0.65rem] tracking-widest">
               {cast.skill?.name || cast.skill_name || "Skillcaster"}
             </div>
           </div>
         </Link>
         <div className="text-right leading-tight">
-          <p className="text-[0.6rem] text-black/60">TOTAL_CREDIT</p>
+          <p className="text-[0.6rem] text-ink/60">TOTAL_CREDIT</p>
           <p className="text-xl">{cast.credit ?? 0}</p>
         </div>
       </div>
@@ -185,14 +185,14 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
           >
             <Heart
               size={18}
-              className={showCreditForm ? "fill-pink text-pink" : "text-black"}
+              className={showCreditForm ? "fill-pink text-pink" : "text-ink"}
             />
           </Button>
         )}
       </div>
 
       {showCreditForm && (
-        <div className="mt-3 p-3 border-2 border-black rounded-xl bg-pink/10 animate-in slide-in-from-top-2 duration-300">
+        <div className="mt-3 p-3 border-2 border-ink rounded-xl bg-pink-muted/10 animate-in slide-in-from-top-2 duration-300">
           <CreditForm
             castId={cast.id}
             onNoteSent={() => setTimeout(() => setShowCreditForm(false), 1500)}

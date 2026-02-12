@@ -208,7 +208,7 @@ const Login = () => {
         {/* VIEW A: USER IS LOGGED IN (Show Logout) */}
         {activeUser ? (
           <div className="text-center py-6">
-            <div className="w-20 h-20 bg-green border-3 border-ink rounded-full flex items-center justify-center mx-auto mb-6 shadow-brutal animate-pulse">
+            <div className="w-20 h-20 bg-neon border-3 border-ink rounded-full flex items-center justify-center mx-auto mb-6 shadow-brutal animate-pulse">
               <ShieldCheck size={40} />
             </div>
             <h2 className="text-3xl font-black italic uppercase tracking-tighter mb-2">
@@ -219,7 +219,7 @@ const Login = () => {
             </p>
 
             <Button
-              variant="cyan"
+              variant="danger"
               className="w-full py-4 text-lg"
               onClick={handleLogoutAction}
             >
@@ -236,7 +236,7 @@ const Login = () => {
         ) : (
           /* VIEW B: USER IS LOGGED OUT (Show Login/Signup) */
           <>
-            <div className="absolute top-[1rem] right-[1rem] w-[4.5rem] h-[4.5rem] bg-yellow border-3 border-ink rounded-full flex items-center justify-center animate-bounce shadow-brutal-sm">
+            <div className="absolute top-[1rem] right-[1rem] w-[4.5rem] h-[4.5rem] bg-yellow border-3 border-ink rounded-full flex items-center justify-center animate-bounce shadow-brutal">
               <Zap size={28} />
             </div>
 

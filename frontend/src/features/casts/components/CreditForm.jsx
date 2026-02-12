@@ -31,7 +31,7 @@ const CreditForm = ({ castId, onNoteSent }) => {
   };
 
   return (
-    <div className="mt-3 p-4 bg-pink/15 border-3 border-ink shadow-brutal-sm animate-in slide-in-from-top-2 duration-300">
+    <div className="mt-3 p-4 bg-pink/15 border-3 border-ink shadow-brutal animate-in slide-in-from-top-2 duration-300">
       <h4 className="text-ink font-black flex items-center gap-2 mb-2 ">
         <Heart size={18} className="text-pink" /> SEND_CREDIT
       </h4>

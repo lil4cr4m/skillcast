@@ -90,14 +90,14 @@ export default function AdminUsers() {
         )}
 
         {/* Users Table */}
-        <div className="overflow-x-auto border-4 border-ink bg-white shadow-[8px_8px_0_0_#000000]">
+        <div className="overflow-x-auto border-4 border-ink bg-white shadow-brutal-lg">
           <table className="w-full">
             <thead>
               <tr className="bg-ink text-offwhite border-b-4 border-ink">
-                <th className="p-4 text-left font-black">USERNAME</th>
-                <th className="p-4 text-left font-black">EMAIL</th>
-                <th className="p-4 text-left font-black">ROLE</th>
-                <th className="p-4 text-left font-black">CREDIT</th>
+                <th className="p-4 text-center font-black">USERNAME</th>
+                <th className="p-4 text-center font-black">EMAIL</th>
+                <th className="p-4 text-center font-black">ROLE</th>
+                <th className="p-4 text-center font-black">CREDIT</th>
                 <th className="p-4 text-center font-black">ACTIONS</th>
               </tr>
             </thead>
@@ -105,46 +105,56 @@ export default function AdminUsers() {
               {users.map((u) => (
                 <tr
                   key={u.id}
-                  className="border-b-2 border-ink hover:bg-neon/10 transition"
+                  className="border-b-2 border-ink hover:bg-neon-muted/10 transition"
                 >
-                  <td className="p-4">
+                  <td className="p-4 text-center">
                     <span className="font-bold text-ink">{u.username}</span>
                   </td>
-                  <td className="p-4 text-sm text-ink">{u.email}</td>
-                  <td className="p-4">
+                  <td className="p-4 text-sm text-center text-ink">
+                    {u.email}
+                  </td>
+                  <td className="p-4 text-center">
                     <span
                       className={`font-bold px-3 py-1 border-2 border-ink ${
                         u.role === "admin"
-                          ? "bg-violet text-offwhite"
+                          ? "bg-pink text-offwhite"
                           : "bg-offwhite text-ink"
                       }`}
                     >
                       {u.role?.toUpperCase()}
                     </span>
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 text-center">
                     <span
                       className={`font-bold ${u.credit >= 100 ? "text-yellow" : "text-ink"}`}
                     >
                       {u.credit}
                     </span>
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 text-center">
                     <div className="flex justify-center gap-2">
                       <button
                         onClick={() => setEditingUser(u)}
-                        className="p-2 bg-cyan border-2 border-ink hover:shadow-[4px_4px_0_0_#000000] transition"
+                        className="p-2 bg-danger border-2 border-ink hover:shadow-brutal transition"
                         title="Edit user"
                       >
-                        <Edit size={16} className="text-ink" />
+                        <Edit size={16} className="text-white" />
                       </button>
-                      {user.id !== u.id && (
+                      {user.id !== u.id ? (
                         <button
                           onClick={() => setDeletingUserId(u.id)}
-                          className="p-2 bg-pink border-2 border-ink hover:shadow-[4px_4px_0_0_#000000] transition"
+                          className="p-2 bg-danger border-2 border-ink hover:shadow-brutal transition"
                           title="Delete user"
                         >
-                          <Trash2 size={16} className="text-ink" />
+                          <Trash2 size={16} className="text-white" />
+                        </button>
+                      ) : (
+                        <button
+                          disabled
+                          className="p-2 bg-ink/30 border-2 border-ink cursor-not-allowed opacity-60"
+                          title="Cannot delete yourself"
+                        >
+                          <Trash2 size={16} className="text-gray-600" />
                         </button>
                       )}
                     </div>
@@ -158,7 +168,7 @@ export default function AdminUsers() {
         {/* Delete Confirmation Modal */}
         {deletingUserId && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <div className="bg-offwhite border-4 border-ink p-8 shadow-[16px_16px_0_0_#000000] max-w-md">
+            <div className="bg-offwhite border-4 border-ink p-8 shadow-brutal-xl max-w-md">
               <h2 className="text-2xl font-black text-ink mb-4">
                 CONFIRM DELETION
               </h2>
@@ -256,7 +266,7 @@ function EditUserModal({ user, onClose, onSave }) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-offwhite border-4 border-ink p-8 shadow-[16px_16px_0_0_#000000] max-w-md w-full">
+      <div className="bg-offwhite border-4 border-ink p-8 shadow-brutal-xl max-w-md w-full">
         <h2 className="text-2xl font-black text-ink mb-6">EDIT USER</h2>
 
         {error && (
@@ -288,7 +298,7 @@ function EditUserModal({ user, onClose, onSave }) {
               type="email"
               value={formData.email}
               disabled
-              className="w-full px-4 py-3 border-2 border-ink font-mono bg-gray-100"
+              className="w-full px-4 py-3 border-2 border-ink font-mono bg-offwhite/50"
             />
           </div>
 
@@ -383,7 +393,7 @@ function CreateUserModal({ onClose, onCreateUser }) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-offwhite border-4 border-ink p-8 shadow-[16px_16px_0_0_#000000] max-w-md w-full">
+      <div className="bg-offwhite border-4 border-ink p-8 shadow-brutal-xl max-w-md w-full">
         <h2 className="text-2xl font-black text-ink mb-6">CREATE USER</h2>
 
         {error && (
