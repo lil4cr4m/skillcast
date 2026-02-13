@@ -13,6 +13,7 @@ import {
   Trash2,
   Archive,
   RotateCcw,
+  CalendarDays,
 } from "lucide-react";
 
 const Profile = () => {
@@ -26,6 +27,24 @@ const Profile = () => {
   const [editingNoteId, setEditingNoteId] = useState(null);
   const [editingContent, setEditingContent] = useState("");
 
+  const formatDateSnake = (value) =>
+    new Date(value)
+      .toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replaceAll(" ", "_");
+
+  const toSnakeCase = (value) =>
+    value
+      ?.toString()
+      .trim()
+      .replace(/\s+/g, "_")
+      .replace(/[^A-Za-z0-9_]/g, "")
+      .toUpperCase();
+
   // Check if this is the logged-in user's own profile
   const isOwnProfile = currentUser?.id?.toString() === id?.toString();
   const canManageReceived = isOwnProfile || currentUser?.role === "admin";
@@ -38,17 +57,17 @@ const Profile = () => {
 
   // Unarchive cast handler - restores archived cast to LIVE status
   const handleUnarchive = async (castId) => {
-    if (!window.confirm("Restore this cast to LIVE status?")) return;
+    if (!window.confirm("RESTORE_THIS_CAST_TO_LIVE_STATUS?")) return;
 
     try {
       await api.put(`/casts/${castId}`, { status: "LIVE" });
       // Remove from archived list
       setArchivedCasts((prev) => prev.filter((c) => c.id !== castId));
       // Optionally show success message
-      alert("Cast restored successfully!");
+      alert("CAST_RESTORED_SUCCESSFULLY");
     } catch (err) {
       console.error("Error unarchiving cast:", err);
-      alert("Failed to restore cast. Please try again.");
+      alert("FAILED_TO_RESTORE_CAST_PLEASE_TRY_AGAIN");
     }
   };
 
@@ -108,18 +127,14 @@ const Profile = () => {
   }, [id, isOwnProfile, currentUser?.role]);
 
   const joinDate = profile?.created_at
-    ? new Date(profile.created_at).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      })
-    : "Unknown";
+    ? formatDateSnake(profile.created_at).toLowerCase()
+    : "unknown";
 
   if (!profile)
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
         <div className="font-black italic text-2xl animate-pulse text-violet uppercase tracking-tighter">
-          Decrypting_User_Data...
+          DECRYPTING_USER_DATA...
         </div>
       </div>
     );
@@ -152,10 +167,10 @@ const Profile = () => {
 
           <div className="pt-4 max-w-2xl mx-auto md:mx-0 space-y-2">
             <h2 className="text-[10px] font-black uppercase text-ink/80 tracking-[0.2em] mb-1">
-              Neural_Bio
+              NEURAL_BIO
             </h2>
             <p className="font-bold text-lg leading-tight text-pretty break-words">
-              {profile.bio || "This node has not broadcasted a bio signal yet."}
+              {profile.bio || "this_node_has_not_broadcasted_a_bio_signal_yet"}
             </p>
           </div>
         </div>
@@ -180,7 +195,7 @@ const Profile = () => {
             {displayCredit}
           </div>
           <div className="font-black text-[10px] uppercase tracking-widest italic text-white text-center">
-            Total_Credit
+            TOTAL_CREDIT
           </div>
         </div>
 
@@ -190,7 +205,7 @@ const Profile = () => {
             {profile.total_casts}
           </div>
           <div className="font-black text-[10px] uppercase tracking-widest italic opacity-70 text-center">
-            Casts_Hosted
+            CASTS_HOSTED
           </div>
         </div>
 
@@ -204,12 +219,13 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="bg-white border-3 border-ink p-6 rounded-3xl shadow-brutal flex flex-col items-center text-center gap-3 justify-center text-ink">
-          <div className="font-black uppercase text-xs tracking-widest text-center">
-            {profile.role || "Member"}
+        <div className="bg-white border-3 border-ink p-6 rounded-3xl shadow-brutal flex flex-col items-center text-center gap-3 text-ink">
+          <CalendarDays size={32} className="text-ink" />
+          <div className="text-5xl font-black tabular-nums leading-tight text-center">
+            {joinDate}
           </div>
-          <div className="text-sm font-bold uppercase text-ink text-center leading-tight">
-            Since {joinDate}
+          <div className="font-black text-[10px] uppercase tracking-widest italic text-ink/70 text-center">
+            date_created
           </div>
         </div>
       </div>
@@ -229,7 +245,7 @@ const Profile = () => {
 
             {sentNotes.length === 0 ? (
               <p className="text-ink/60 font-bold italic p-4">
-                No notes sent to the network yet.
+                no_notes_sent_to_the_network_yet
               </p>
             ) : (
               <div className="space-y-4">
@@ -314,7 +330,7 @@ const Profile = () => {
                         <p className="text-[0.7rem] font-bold text-ink uppercase">
                           TO_HOST:{" "}
                           <span className="text-violet">
-                            @{note.receiver_username || "Caster"}
+                            @{note.receiver_username || "caster"}
                           </span>
                         </p>
                         <div className="flex gap-2">
@@ -332,7 +348,7 @@ const Profile = () => {
                             variant="danger"
                             className="px-3 py-2"
                             onClick={async () => {
-                              if (!window.confirm("Delete sent note?")) return;
+                              if (!window.confirm("DELETE_SENT_NOTE?")) return;
                               try {
                                 await api.delete(`/notes/${note.id}`);
                                 setSentNotes((prev) =>
@@ -369,7 +385,7 @@ const Profile = () => {
 
             {receivedNotes.length === 0 ? (
               <p className="text-ink/60 font-bold italic p-4">
-                No notes received yet.
+                no_notes_received_yet
               </p>
             ) : (
               <div className="space-y-4">
@@ -408,7 +424,7 @@ const Profile = () => {
                           to={`/profile/${note.sender_id}`}
                           className="text-pink hover:underline font-black tracking-tighter"
                         >
-                          @{note.sender_username || "Anonymous"}
+                          @{note.sender_username || "anonymous"}
                         </Link>
                       </p>
                       <Button
@@ -417,7 +433,7 @@ const Profile = () => {
                         onClick={async () => {
                           if (
                             !window.confirm(
-                              "Scrub this signal from your profile?",
+                              "SCRUB_THIS_SIGNAL_FROM_YOUR_PROFILE?",
                             )
                           )
                             return;
@@ -446,16 +462,16 @@ const Profile = () => {
           <div className="bg-white border-3 border-ink p-6 rounded-[2rem] shadow-brutal-lg space-y-4">
             <div className="flex items-center justify-between pb-2">
               <h3 className="text-2xl font-black uppercase tracking-tighter">
-                ARCHIVED_CASTS
+                archived_casts
               </h3>
               <span className="bg-ink text-white text-[0.65rem] px-2 py-1 font-black rounded-full border-2 border-ink">
-                PAST_BROADCASTS
+                past_broadcasts
               </span>
             </div>
 
             {archivedCasts.length === 0 ? (
               <p className="text-ink/60 font-bold italic p-4">
-                No archived casts yet.
+                no_archived_casts_yet
               </p>
             ) : (
               <div className="grid gap-4 sm:grid-cols-2">
@@ -468,10 +484,10 @@ const Profile = () => {
                     <div className="flex justify-between items-start gap-3">
                       <div className="min-w-0 flex-1">
                         <span className="text-[0.6rem] font-black uppercase tracking-widest text-ink/60 block mb-1">
-                          {cast.channel || "GENERAL"}
+                          {toSnakeCase(cast.channel) || "general"}
                         </span>
                         <h4 className="font-black text-lg text-ink uppercase leading-tight">
-                          {cast.title}
+                          {toSnakeCase(cast.title)}
                         </h4>
                       </div>
                       <div className="shrink-0">
@@ -491,7 +507,7 @@ const Profile = () => {
                       </div>
                       <div className="text-right">
                         <p className="text-[0.6rem] text-ink/60 font-black uppercase tracking-widest">
-                          CREDIT
+                          credit
                         </p>
                         <p className="text-lg font-black text-ink">
                           {cast.credit || 0}
@@ -501,7 +517,7 @@ const Profile = () => {
 
                     {/* Archived Date */}
                     <div className="text-[0.65rem] font-bold text-ink/40 uppercase text-center">
-                      Archived: {new Date(cast.updated_at).toLocaleDateString()}
+                      {`archived_${formatDateSnake(cast.updated_at).toLowerCase()}`}
                     </div>
 
                     {/* Unarchive Button */}

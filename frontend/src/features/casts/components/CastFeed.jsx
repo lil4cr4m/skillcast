@@ -168,10 +168,10 @@ const CastFeed = ({ selectedChannel, searchQuery }) => {
     return (
       <div className="bg-white border-3 border-ink border-dashed rounded-3xl p-12 text-center shadow-brutal">
         <p className="font-black text-ink/80 uppercase tracking-widest mb-4">
-          No Live Casts
+          NO_LIVE_CASTS
         </p>
         <p className="text-ink font-bold italic underline decoration-violet decoration-4">
-          Be the first to cast!
+          BE_THE_FIRST_TO_CAST
         </p>
       </div>
     );

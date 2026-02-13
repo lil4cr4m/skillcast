@@ -131,7 +131,9 @@ function App() {
                 element={
                   <div className="flex flex-col items-center justify-center py-20">
                     {/* 🎨 Neo-brutalism 404 design with bold typography */}
-                    <h1 className="text-6xl font-black text-violet">404</h1>
+                    <h1 className="text-6xl font-black text-violet">
+                      ERROR_404
+                    </h1>
                     <p className="text-ink/60 mt-4 font-bold uppercase text-xs tracking-widest">
                       FEED_NOT_FOUND: ROUTE_BACK_TO_LIVE_CASTS.
                     </p>

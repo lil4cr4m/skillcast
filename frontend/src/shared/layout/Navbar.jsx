@@ -137,7 +137,7 @@ export const Navbar = () => {
                 : "hover:text-violet" // Hover state
             }`}
           >
-            <HomeIcon size={16} /> Feed
+            <HomeIcon size={16} /> FEED
           </Link>
 
           {/* ================ AUTHENTICATED USER NAVIGATION ================ */}
@@ -153,7 +153,7 @@ export const Navbar = () => {
                     : "hover:text-violet"
                 }`}
               >
-                <UserIcon size={16} /> Profile
+                <UserIcon size={16} /> PROFILE
               </Link>
 
               {/* 🔒 ADMIN LINK - Only visible for admin users */}
@@ -167,7 +167,7 @@ export const Navbar = () => {
                       : "hover:text-violet"
                   }`}
                 >
-                  <AdminIcon size={16} /> Admin
+                  <AdminIcon size={16} /> ADMIN
                 </Link>
               )}
 
@@ -177,7 +177,7 @@ export const Navbar = () => {
                 className="py-2 text-xs px-4 shadow-brutal"
                 onClick={handleLogout}
               >
-                <LogOut size={16} className="mr-1" /> Logout
+                <LogOut size={16} className="mr-1" /> LOG_OUT
               </Button>
             </>
           ) : (
@@ -189,7 +189,7 @@ export const Navbar = () => {
                   variant="danger"
                   className="py-2 text-xs px-6 shadow-brutal"
                 >
-                  <LogIn size={16} className="mr-1" /> Login
+                  <LogIn size={16} className="mr-1" /> LOG_IN
                 </Button>
               </Link>
             </>

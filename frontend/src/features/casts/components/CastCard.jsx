@@ -69,6 +69,16 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
   // 🔐 AUTHENTICATION & PERMISSIONS
   const { user } = useAuth();
 
+  const formatSnakeIfMultiWord = (value) => {
+    const raw = value?.toString().trim();
+    if (!raw) return raw;
+    if (!/\s/.test(raw)) return raw.toUpperCase();
+    return raw
+      .replace(/\s+/g, "_")
+      .replace(/[^A-Za-z0-9_]/g, "")
+      .toUpperCase();
+  };
+
   // 🎛️ UI STATE MANAGEMENT
   const [showCreditForm, setShowCreditForm] = useState(false); // Credit interface visibility
   const [editMode, setEditMode] = useState(false); // Edit form visibility
@@ -96,7 +106,10 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
    */
 
   const handleStatusChange = async (newStatus) => {
-    if (newStatus === "ENDED" && !window.confirm("End this cast permanently?"))
+    if (
+      newStatus === "ENDED" &&
+      !window.confirm("END_THIS_CAST_PERMANENTLY?")
+    )
       return;
     setSaving(true);
     try {
@@ -104,21 +117,21 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
       onUpdate?.(res.data);
     } catch (err) {
       console.error("Error updating cast status:", err);
-      alert("Unable to update cast status.");
+      alert("UNABLE_TO_UPDATE_CAST_STATUS");
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("Delete this cast permanently?")) return;
+    if (!window.confirm("DELETE_THIS_CAST_PERMANENTLY?")) return;
     setDeleting(true);
     try {
       await api.delete(`/casts/${cast.id}`);
       onDelete?.(cast.id);
     } catch (err) {
       console.error("Error deleting cast:", err);
-      alert("Unable to delete cast right now.");
+      alert("UNABLE_TO_DELETE_CAST_RIGHT_NOW");
     } finally {
       setDeleting(false);
     }
@@ -133,7 +146,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
       setEditMode(false);
     } catch (err) {
       console.error("Error updating cast:", err);
-      alert("Update failed. Please check fields and try again.");
+      alert("UPDATE_FAILED_PLEASE_CHECK_FIELDS_AND_TRY_AGAIN");
     } finally {
       setSaving(false);
     }
@@ -143,7 +156,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
     <div className="bg-white border-4 border-ink p-6 shadow-brutal hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all flex flex-col h-full">
       <div className="flex justify-between items-start mb-4">
         <span className="bg-ink text-offwhite px-2 py-1 text-[0.6rem] font-black uppercase tracking-widest">
-          {cast.skill?.channel || "GENERAL"} // CHANNEL
+          {formatSnakeIfMultiWord(cast.skill?.channel) || "GENERAL"} // CHANNEL
         </span>
         {/* LIVE status: green animated dot (neon color) */}
         {cast.status === "LIVE" && (
@@ -156,7 +169,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
       </div>
 
       <h3 className="text-2xl font-black uppercase leading-none mb-2">
-        {cast.title}
+        {formatSnakeIfMultiWord(cast.title)}
       </h3>
       <p className="text-sm font-bold text-ink/70 mb-6 line-clamp-3">
         {cast.description}
@@ -172,10 +185,11 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
           </div>
           <div className="leading-tight">
             <div className="text-pink italic">
-              @{cast.username || "anonymous"}
+              @{cast.username || "ANONYMOUS"}
             </div>
             <div className="text-ink/60 text-[0.65rem] tracking-widest">
-              {cast.skill?.name || cast.skill_name || "Skillcaster"}
+              {formatSnakeIfMultiWord(cast.skill?.name || cast.skill_name) ||
+                "SKILLCASTER"}
             </div>
           </div>
         </Link>
@@ -271,7 +285,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
               onClick={handleDelete}
               disabled={deleting}
             >
-              <Trash2 size={12} /> {deleting ? "DEL..." : "DELETE_CAST"}
+              <Trash2 size={12} /> {deleting ? "DELETING..." : "DELETE_CAST"}
             </Button>
           )}
         </div>
@@ -297,7 +311,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
               }
-              placeholder="Cast title"
+              placeholder="cast_title"
               required
             />
             <textarea
@@ -306,7 +320,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
               }
-              placeholder="Description"
+              placeholder="description"
             />
             <input
               type="url"
@@ -315,7 +329,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
               onChange={(e) =>
                 setFormData({ ...formData, meeting_link: e.target.value })
               }
-              placeholder="Meeting link"
+              placeholder="meeting_link"
               required
             />
             <div className="flex gap-2">

@@ -111,14 +111,14 @@ const Home = () => {
       {/* STICKY POSITIONING: Stays in view when scrolling on large screens */}
       <aside
         className="lg:col-span-3 lg:sticky lg:top-[6rem] space-y-6 order-1"
-        aria-label="User actions and stats"
+        aria-label="USER_ACTIONS_AND_STATS"
       >
         {/* 🎨 IDENTITY CARD - Neo-brutalism design with heavy shadows and borders */}
         <div className="bg-white border-4 border-ink p-6 shadow-brutal-lg space-y-4">
           {/* 🏷️ USER ROLE - Stacked display */}
           <div>
             <p className="text-[0.6rem] font-black uppercase tracking-widest text-black/60 mb-1">
-              Role
+              ROLE
             </p>
             <p className="text-2xl font-black uppercase tracking-tighter">
               {user?.role === "admin" ? "ADMIN" : "USER"}
@@ -128,10 +128,10 @@ const Home = () => {
           {/* 👤 USERNAME - Stacked display with @ symbol */}
           <div>
             <p className="text-[0.6rem] font-black uppercase tracking-widest text-ink/60 mb-1">
-              Username
+              USERNAME
             </p>
             <p className="text-xl font-black text-danger italic">
-              @{displayUser?.username || "Guest"}
+              @{displayUser?.username || "GUEST"}
             </p>
           </div>
         </div>
@@ -143,7 +143,7 @@ const Home = () => {
             {displayUser?.credit || 0}
           </div>
           <div className="font-black text-[10px] uppercase tracking-widest italic text-white text-center">
-            Total_Credit
+            TOTAL_CREDIT
           </div>
         </div>
 
@@ -177,7 +177,7 @@ const Home = () => {
               <span className="w-3 h-3 rounded-full bg-neon animate-pulse border-2 border-ink" />
               {/* Status label with micro-typography */}
               <span className="text-[0.6rem] xl:text-[0.625rem] font-black uppercase tracking-widest leading-none">
-                Casting Now
+                CASTING_NOW
               </span>
             </div>
           </div>
@@ -189,7 +189,7 @@ const Home = () => {
               {/* Custom Tailwind class for consistent input styling */}
               <input
                 type="text"
-                placeholder="SEARCH_FOR_CHANNELS..."
+                placeholder="search_for_channels"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="input-brutal w-full pr-12"
@@ -217,14 +217,14 @@ const Home = () => {
       {/* STICKY POSITIONING: Stays visible when scrolling */}
       <aside
         className="lg:col-span-3 lg:sticky lg:top-[6rem] order-3"
-        aria-label="Top casters leaderboard"
+        aria-label="TOP_CASTERS_LEADERBOARD"
       >
         {/* 🎨 LEADERBOARD CARD with yellow header and white content area */}
         <div className="bg-offwhite border-4 border-ink shadow-brutal-lg overflow-hidden">
           {/* 🏷️ LEADERBOARD HEADER with bright yellow accent */}
           <div className="p-[1.5rem] border-b-4 border-ink bg-yellow">
             <h2 className="text-[1.25rem] font-black uppercase tracking-tighter leading-none text-white">
-              Top_Casters
+              TOP_CASTERS
             </h2>
           </div>
 

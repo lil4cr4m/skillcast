@@ -161,14 +161,14 @@ const Login = () => {
 
         // ✅ REGISTRATION SUCCESS - SWITCH TO LOGIN MODE
         setIsLogin(true);
-        alert("ACCOUNT_INITIALIZED: Please log in.");
+        alert("ACCOUNT_INITIALIZED_PLEASE_LOG_IN");
       }
     } catch (err) {
       // ❌ AUTHENTICATION FAILED
       console.error("Authentication failed:", err);
       // Display user-friendly error message in app's style
       setError(
-        err.response?.data?.error || "ACCESS_DENIED: Check credentials.",
+        err.response?.data?.error || "ACCESS_DENIED_CHECK_CREDENTIALS",
       );
     }
   };
@@ -198,7 +198,7 @@ const Login = () => {
       // ❌ LOGOUT ERROR (rare)
       console.error("Logout error:", err);
       // Even if logout fails, user should see what happened
-      setError("LOGOUT_FAILED: System error.");
+      setError("LOGOUT_FAILED_SYSTEM_ERROR");
     }
   };
 
@@ -212,10 +212,10 @@ const Login = () => {
               <ShieldCheck size={40} />
             </div>
             <h2 className="text-3xl font-black italic uppercase tracking-tighter mb-2">
-              Session_Active
+              SESSION_ACTIVE
             </h2>
             <p className="text-ink/60 font-bold text-xs uppercase mb-8 tracking-widest">
-              Identified_as: {activeUser.username || activeUser.email}
+              IDENTIFIED_AS: {activeUser.username || activeUser.email}
             </p>
 
             <Button
@@ -230,7 +230,7 @@ const Login = () => {
               onClick={() => navigate("/")}
               className="mt-6 font-black uppercase text-[10px] tracking-[0.2em] underline decoration-violet decoration-2 underline-offset-4"
             >
-              Return_to_Feed
+              RETURN_TO_FEED
             </button>
           </div>
         ) : (
@@ -245,13 +245,13 @@ const Login = () => {
                 {isLogin ? "IN_THE_CLUB" : "START_SHARING"}
               </h2>
               <p className="text-ink/60 font-bold text-xs uppercase mt-2 tracking-widest">
-                {isLogin ? "Join_the_Cast" : "Register_Here"}
+                {isLogin ? "JOIN_THE_CAST" : "REGISTER_HERE"}
               </p>
             </header>
 
             {error && (
               <div className="mb-6 p-4 bg-pink text-white border-3 border-ink rounded-xl font-black text-xs uppercase animate-shake">
-                ERR: {error}
+                ERROR: {error}
               </div>
             )}
 
@@ -265,7 +265,7 @@ const Login = () => {
                     />
                     <input
                       type="text"
-                      placeholder="USERNAME"
+                      placeholder="username"
                       required
                       className="input-brutal pl-12"
                       onChange={(e) =>
@@ -280,7 +280,7 @@ const Login = () => {
                     />
                     <input
                       type="text"
-                      placeholder="FULL_NAME"
+                      placeholder="full_name"
                       className="input-brutal pl-12"
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
@@ -297,7 +297,7 @@ const Login = () => {
                 />
                 <input
                   type="email"
-                  placeholder="EMAIL"
+                  placeholder="email"
                   required
                   className="input-brutal pl-12"
                   onChange={(e) =>
@@ -313,7 +313,7 @@ const Login = () => {
                 />
                 <input
                   type="password"
-                  placeholder="PASSWORD"
+                  placeholder="password"
                   required
                   className="input-brutal pl-12"
                   onChange={(e) =>
@@ -345,8 +345,8 @@ const Login = () => {
                 className="text-cyan font-black uppercase text-xs tracking-widest hover:underline decoration-cyan decoration-4 underline-offset-4"
               >
                 {isLogin
-                  ? "New_here? [Create_Account]"
-                  : "Known_user? [Authenticate]"}
+                  ? "NEW_HERE_CREATE_ACCOUNT"
+                  : "KNOWN_USER_AUTHENTICATE"}
               </button>
             </div>
           </>

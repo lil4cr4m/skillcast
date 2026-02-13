@@ -29,7 +29,7 @@ export default function AdminUsers() {
         setUsers(response.data);
         setError(null);
       } catch (err) {
-        setError(err.response?.data?.error || "Failed to fetch users");
+        setError(err.response?.data?.error || "FAILED_TO_FETCH_USERS");
         console.error("Error fetching users:", err);
       } finally {
         setLoading(false);
@@ -48,14 +48,14 @@ export default function AdminUsers() {
       setDeletingUserId(null);
     } catch (err) {
       console.error("Error deleting user:", err);
-      setError(err.response?.data?.error || "Failed to delete user");
+      setError(err.response?.data?.error || "FAILED_TO_DELETE_USER");
     }
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen bg-offwhite">
-        <div className="text-ink font-bold">Loading users...</div>
+        <div className="text-ink font-bold">LOADING_USERS...</div>
       </div>
     );
   }
@@ -67,10 +67,10 @@ export default function AdminUsers() {
         <div className="flex justify-between items-center mb-12 border-b-4 pb-6">
           <div>
             <h1 className="text-4xl font-black text-ink mb-2">
-              ADMIN// USER MANAGEMENT
+              ADMIN_USER_MANAGEMENT
             </h1>
             <p className="text-sm font-mono text-ink">
-              {users.length} users in database
+              {users.length} USERS_IN_DATABASE
             </p>
           </div>
           <Button
@@ -78,7 +78,7 @@ export default function AdminUsers() {
             onClick={() => setIsCreateModalOpen(true)}
             className="flex items-center gap-2"
           >
-            <Plus size={18} /> CREATE USER
+            <Plus size={18} /> CREATE_USER
           </Button>
         </div>
 
@@ -90,7 +90,7 @@ export default function AdminUsers() {
               {user?.credit || 0}
             </div>
             <div className="font-black text-[10px] uppercase tracking-widest italic text-white text-center">
-              Your_Credit
+              YOUR_CREDIT
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function AdminUsers() {
         {/* Error Alert */}
         {error && (
           <div className="mb-6 p-4 bg-pink border-4 border-ink text-ink font-bold">
-            ERROR: {error}
+            ERROR_MESSAGE: {error}
           </div>
         )}
 
@@ -149,7 +149,7 @@ export default function AdminUsers() {
                       <button
                         onClick={() => setEditingUser(u)}
                         className="p-2 bg-danger border-2 border-ink hover:shadow-brutal transition"
-                        title="Edit user"
+                        title="EDIT_USER"
                       >
                         <Edit size={16} className="text-white" />
                       </button>
@@ -157,7 +157,7 @@ export default function AdminUsers() {
                         <button
                           onClick={() => setDeletingUserId(u.id)}
                           className="p-2 bg-danger border-2 border-ink hover:shadow-brutal transition"
-                          title="Delete user"
+                          title="DELETE_USER"
                         >
                           <Trash2 size={16} className="text-white" />
                         </button>
@@ -165,7 +165,7 @@ export default function AdminUsers() {
                         <button
                           disabled
                           className="p-2 bg-ink/30 border-2 border-ink cursor-not-allowed opacity-60"
-                          title="Cannot delete yourself"
+                          title="CANNOT_DELETE_YOURSELF"
                         >
                           <Trash2 size={16} className="text-ink/50" />
                         </button>
@@ -183,11 +183,10 @@ export default function AdminUsers() {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
             <div className="bg-offwhite border-4 border-ink p-8 shadow-brutal-xl max-w-md">
               <h2 className="text-2xl font-black text-ink mb-4">
-                CONFIRM DELETION
+                CONFIRM_DELETION
               </h2>
               <p className="text-ink mb-6">
-                Are you sure you want to delete this user? This action cannot be
-                undone.
+                ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_USER_THIS_ACTION_CANNOT_BE_UNDONE
               </p>
               <div className="flex gap-4">
                 <Button
@@ -270,7 +269,7 @@ function EditUserModal({ user, onClose, onSave }) {
       });
       onSave(response.data);
     } catch (err) {
-      setError(err.response?.data?.error || "Failed to update user");
+      setError(err.response?.data?.error || "FAILED_TO_UPDATE_USER");
       console.error("Error updating user:", err);
     } finally {
       setLoading(false);
@@ -280,7 +279,7 @@ function EditUserModal({ user, onClose, onSave }) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
       <div className="bg-offwhite border-4 border-ink p-8 shadow-brutal-xl max-w-md w-full">
-        <h2 className="text-2xl font-black text-ink mb-6">EDIT USER</h2>
+        <h2 className="text-2xl font-black text-ink mb-6">EDIT_USER</h2>
 
         {error && (
           <div className="mb-4 p-3 bg-pink border-2 border-ink text-ink text-sm font-bold">
@@ -299,13 +298,13 @@ function EditUserModal({ user, onClose, onSave }) {
               value={formData.name}
               onChange={handleChange}
               className="w-full px-4 py-3 border-2 border-ink font-mono"
-              placeholder="Full name"
+              placeholder="full_name"
             />
           </div>
 
           <div>
             <label className="block text-sm font-bold text-ink mb-3">
-              EMAIL (Read Only)
+              EMAIL_READ_ONLY
             </label>
             <input
               type="email"
@@ -325,7 +324,7 @@ function EditUserModal({ user, onClose, onSave }) {
               value={formData.credit}
               onChange={handleChange}
               className="w-full px-4 py-3 border-2 border-ink font-mono"
-              placeholder="Credit amount"
+              placeholder="credit_amount"
             />
           </div>
 
@@ -397,7 +396,7 @@ function CreateUserModal({ onClose, onCreateUser }) {
       });
       onCreateUser(response.data);
     } catch (err) {
-      setError(err.response?.data?.error || "Failed to create user");
+      setError(err.response?.data?.error || "FAILED_TO_CREATE_USER");
       console.error("Error creating user:", err);
     } finally {
       setLoading(false);
@@ -407,7 +406,7 @@ function CreateUserModal({ onClose, onCreateUser }) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
       <div className="bg-offwhite border-4 border-ink p-8 shadow-brutal-xl max-w-md w-full">
-        <h2 className="text-2xl font-black text-ink mb-6">CREATE USER</h2>
+        <h2 className="text-2xl font-black text-ink mb-6">CREATE_USER</h2>
 
         {error && (
           <div className="mb-4 p-3 bg-pink border-2 border-ink text-ink text-sm font-bold">
@@ -442,7 +441,7 @@ function CreateUserModal({ onClose, onCreateUser }) {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border-2 border-ink font-mono"
-              placeholder="email@example.com"
+              placeholder="email_example_com"
             />
           </div>
 
@@ -463,7 +462,7 @@ function CreateUserModal({ onClose, onCreateUser }) {
 
           <div>
             <label className="block text-sm font-bold text-ink mb-3">
-              NAME (Optional)
+              NAME_OPTIONAL
             </label>
             <input
               type="text"
@@ -471,7 +470,7 @@ function CreateUserModal({ onClose, onCreateUser }) {
               value={formData.name}
               onChange={handleChange}
               className="w-full px-4 py-3 border-2 border-ink font-mono"
-              placeholder="Full name"
+              placeholder="full_name"
             />
           </div>
 

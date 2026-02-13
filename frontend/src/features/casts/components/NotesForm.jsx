@@ -24,7 +24,7 @@ const NotesForm = ({ castId, onNoteSent }) => {
       if (onNoteSent) onNoteSent();
     } catch (err) {
       console.error("Error sending note:", err);
-      setMessage(err.response?.data?.error || "Failed to send.");
+      setMessage(err.response?.data?.error || "FAILED_TO_SEND");
     } finally {
       setIsSubmitting(false);
     }
@@ -36,7 +36,7 @@ const NotesForm = ({ castId, onNoteSent }) => {
         <Heart size={18} className="text-danger" /> SEND_NOTES
       </h4>
       <p className="text-xs text-ink/70 mb-4 font-bold uppercase tracking-wide">
-        Leaving a note awards the host +10 Credit!
+        LEAVING_A_NOTE_AWARDS_THE_HOST_PLUS_10_CREDIT
       </p>
 
       {message ? (
@@ -48,7 +48,7 @@ const NotesForm = ({ castId, onNoteSent }) => {
           <textarea
             required
             className="input-brutal h-24 text-sm resize-none"
-            placeholder="What did you learn from this session?"
+            placeholder="what_did_you_learn_from_this_session"
             rows="3"
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -59,7 +59,7 @@ const NotesForm = ({ castId, onNoteSent }) => {
             variant="pink"
             className="w-full py-2 text-xs tracking-tight disabled:opacity-50"
           >
-            <Send size={16} /> {isSubmitting ? "Sending..." : "Send"}
+            <Send size={16} /> {isSubmitting ? "SENDING..." : "SEND"}
           </Button>
         </form>
       )}

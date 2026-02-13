@@ -118,7 +118,7 @@ export const AuthProvider = ({ children }) => {
       } catch (err) {
         // 🧹 REFRESH FAILED - CLEAR EVERYTHING
         console.error("Token refresh failed:", err);
-        // Tokens are invalid/expired, force re-login
+        // Tokens are invalid/expired, force re-
         localStorage.clear();
         setUser(null);
       } finally {

@@ -44,7 +44,7 @@ const EditProfile = () => {
       navigate(`/profile/${user.id}`);
     } catch (err) {
       console.error("Error updating profile:", err);
-      alert("Failed to update profile signal.");
+      alert("FAILED_TO_UPDATE_PROFILE_SIGNAL");
     } finally {
       setLoading(false);
     }
@@ -55,14 +55,14 @@ const EditProfile = () => {
     setPassStatus({ message: "", error: "" });
 
     if (passwords.newPassword !== passwords.confirmPassword) {
-      setPassStatus({ message: "", error: "Passwords do not match" });
+      setPassStatus({ message: "", error: "PASSWORDS_DO_NOT_MATCH" });
       return;
     }
 
     if (passwords.newPassword.length < 8) {
       setPassStatus({
         message: "",
-        error: "Password must be at least 8 characters",
+        error: "PASSWORD_MUST_BE_AT_LEAST_8_CHARACTERS",
       });
       return;
     }
@@ -73,7 +73,7 @@ const EditProfile = () => {
         currentPassword: passwords.currentPassword,
         newPassword: passwords.newPassword,
       });
-      setPassStatus({ message: "Password updated successfully", error: "" });
+      setPassStatus({ message: "PASSWORD_UPDATED_SUCCESSFULLY", error: "" });
       setPasswords({
         currentPassword: "",
         newPassword: "",
@@ -84,7 +84,7 @@ const EditProfile = () => {
       setPassStatus({
         message: "",
         error:
-          err.response?.data?.error || "Unable to update password right now",
+          err.response?.data?.error || "UNABLE_TO_UPDATE_PASSWORD_RIGHT_NOW",
       });
     } finally {
       setPwLoading(false);
@@ -97,16 +97,16 @@ const EditProfile = () => {
         onClick={() => navigate(-1)}
         className="flex items-center gap-2 font-black uppercase text-xs mb-6 hover:text-violet transition-colors"
       >
-        <ChevronLeft size={16} /> Back to Profile
+        <ChevronLeft size={16} /> BACK_TO_PROFILE
       </button>
 
       <div className="bg-white border-3 border-ink p-8 rounded-[2.5rem] shadow-brutal-lg">
         <header className="mb-8">
           <h1 className="text-4xl font-black italic uppercase italic">
-            Modify_Identity
+            MODIFY_IDENTITY
           </h1>
           <p className="text-ink/50 font-bold text-xs uppercase tracking-widest">
-            Update your public cast metadata
+            UPDATE_YOUR_PUBLIC_CAST_METADATA
           </p>
         </header>
 
@@ -114,12 +114,12 @@ const EditProfile = () => {
           {/* NAME INPUT */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <User size={14} /> Display Name
+              <User size={14} /> DISPLAY_NAME
             </label>
             <input
               type="text"
               className="input-brutal"
-              placeholder="Your Name"
+              placeholder="your_name"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -130,11 +130,11 @@ const EditProfile = () => {
           {/* BIO TEXTAREA */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <FileText size={14} /> Neural Bio
+              <FileText size={14} /> NEURAL_BIO
             </label>
             <textarea
               className="input-brutal h-32 resize-none"
-              placeholder="Broadcast your skills..."
+              placeholder="broadcast_your_skills"
               value={formData.bio}
               onChange={(e) =>
                 setFormData({ ...formData, bio: e.target.value })
@@ -157,10 +157,10 @@ const EditProfile = () => {
       <div className="bg-white border-3 border-ink p-8 rounded-[2.5rem] shadow-brutal-lg">
         <header className="mb-8">
           <h2 className="text-3xl font-black italic uppercase tracking-tighter">
-            Update_Password
+            UPDATE_PASSWORD
           </h2>
           <p className="text-ink/50 font-bold text-xs uppercase tracking-widest">
-            Secure your node with a new key
+            SECURE_YOUR_NODE_WITH_A_NEW_KEY
           </p>
         </header>
 
@@ -178,12 +178,12 @@ const EditProfile = () => {
         <form onSubmit={handlePasswordChange} className="space-y-5">
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <Lock size={14} /> Current Password
+              <Lock size={14} /> CURRENT_PASSWORD
             </label>
             <input
               type="password"
               className="input-brutal"
-              placeholder="Enter current password"
+              placeholder="enter_current_password"
               value={passwords.currentPassword}
               onChange={(e) =>
                 setPasswords({ ...passwords, currentPassword: e.target.value })
@@ -195,12 +195,12 @@ const EditProfile = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-                <Lock size={14} /> New Password
+                <Lock size={14} /> NEW_PASSWORD
               </label>
               <input
                 type="password"
                 className="input-brutal"
-                placeholder="Enter new password"
+                placeholder="enter_new_password"
                 value={passwords.newPassword}
                 onChange={(e) =>
                   setPasswords({ ...passwords, newPassword: e.target.value })
@@ -210,12 +210,12 @@ const EditProfile = () => {
             </div>
             <div>
               <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-                <Lock size={14} /> Confirm Password
+                <Lock size={14} /> CONFIRM_PASSWORD
               </label>
               <input
                 type="password"
                 className="input-brutal"
-                placeholder="Re-enter new password"
+                placeholder="re_enter_new_password"
                 value={passwords.confirmPassword}
                 onChange={(e) =>
                   setPasswords({

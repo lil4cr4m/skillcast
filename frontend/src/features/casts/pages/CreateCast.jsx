@@ -51,10 +51,10 @@ const CreateCast = () => {
       <div className="bg-white border-3 border-ink p-8 md:p-12 rounded-[2.5rem] shadow-brutal-lg">
         <header className="mb-10 text-center md:text-left">
           <h1 className="text-5xl mb-2 italic">
-            Start a <span className="text-violet">Cast</span>
+            START_A_<span className="text-violet">CAST</span>
           </h1>
           <p className="font-black text-ink/50 uppercase text-xs tracking-widest">
-            Launch a new SkillCast
+            LAUNCH_A_NEW_SKILLCAST
           </p>
         </header>
 
@@ -62,7 +62,7 @@ const CreateCast = () => {
           {/* CHANNEL SELECT: Linked to DB Skills */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <Layers size={14} /> Channel
+              <Layers size={14} /> CHANNEL
             </label>
             <select
               required
@@ -84,13 +84,13 @@ const CreateCast = () => {
           {/* TITLE INPUT */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <Zap size={14} /> Cast Title
+              <Zap size={14} /> CAST_TITLE
             </label>
             <input
               type="text"
               required
               className="input-brutal"
-              placeholder="e.g., MASTERING_REACT_RECURSION"
+              placeholder="example_mastering_react_recursion"
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
               }
@@ -100,14 +100,13 @@ const CreateCast = () => {
           {/* MEETING LINK: Essential for the 'Join' logic */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <LinkIcon size={14} /> Cast Link
-              (Discord/Meet/Twitch/Youtube/Zoom/etc.)
+              <LinkIcon size={14} /> CAST_LINK_DISCORD_MEET_TWITCH_YOUTUBE_ZOOM_ETC
             </label>
             <input
               type="url"
               required
               className="input-brutal"
-              placeholder="https://meeting.link/your-cast"
+              placeholder="example_meeting_link"
               defaultValue="https://"
               onChange={(e) =>
                 setFormData({ ...formData, meeting_link: e.target.value })
@@ -118,11 +117,11 @@ const CreateCast = () => {
           {/* DESCRIPTION TEXTAREA */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <Info size={14} /> Cast Details (Description)
+              <Info size={14} /> CAST_DETAILS_DESCRIPTION
             </label>
             <textarea
               className="input-brutal h-32 resize-none"
-              placeholder="Tell the network what we're casting about..."
+              placeholder="tell_the_network_what_we_are_casting_about"
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
               }
@@ -137,7 +136,7 @@ const CreateCast = () => {
               className="w-full py-5 text-xl shadow-brutal"
               disabled={loading}
             >
-              {loading ? "SYNCING..." : "LAUNCH BROADCAST"}
+              {loading ? "SYNCING..." : "LAUNCH_BROADCAST"}
             </Button>
           </div>
         </form>

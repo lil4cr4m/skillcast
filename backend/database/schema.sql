@@ -85,6 +85,7 @@ $$ language 'plpgsql';
 CREATE TRIGGER tr_update_users BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION update_timestamp();
 CREATE TRIGGER tr_update_casts BEFORE UPDATE ON casts FOR EACH ROW EXECUTE FUNCTION update_timestamp();
 
+
 -- Credit Reward Logic: +10 Credit when a Cast receives a note
 CREATE OR REPLACE FUNCTION award_credit() RETURNS TRIGGER AS $$
 BEGIN
