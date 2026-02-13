@@ -2,7 +2,7 @@
  * SKILLS ROUTES CONFIGURATION
  * Defines all endpoints for skill catalog management and user skill profiles
  * Handles skill discovery, user profile management, and admin catalog operations
- * Skills are organized by channels for better categorization and discovery
+ * Skills are organized by categories for better categorization and discovery
  */
 
 import express from "express";
@@ -25,9 +25,9 @@ const router = express.Router();
 /**
  * GET /api/skills/
  * Retrieves the complete global skills catalog
- * Shows all available skills organized by channel (category)
+ * Shows all available skills organized by category
  * Used for skill discovery, cast creation, and browsing topics
- * Returns data sorted alphabetically within each channel
+ * Returns data sorted alphabetically within each category
  */
 router.get("/", getAllSkills);
 
@@ -68,7 +68,7 @@ router.post("/add", authenticateToken, addUserSkill);
  *
  * Body Parameters:
  * - name: Required - The skill/topic name (e.g., "React Hooks")
- * - channel: Required - The category (e.g., "Programming", "Design")
+ * - category: Required - The category (e.g., "Programming", "Design")
  */
 router.post("/", authenticateToken, createSkill);
 
@@ -82,7 +82,7 @@ router.post("/", authenticateToken, createSkill);
  *
  * Body Parameters:
  * - name: Required - Updated skill name
- * - channel: Required - Updated channel/category
+ * - category: Required - Updated category
  */
 router.put("/:id", authenticateToken, updateSkill);
 

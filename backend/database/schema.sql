@@ -36,7 +36,7 @@ CREATE TABLE users (
 CREATE TABLE skills (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(50) UNIQUE NOT NULL,
-    channel VARCHAR(50) NOT NULL 
+    category VARCHAR(50) NOT NULL 
 );
 
 -- CASTS: The "Live Now" broadcasting sessions

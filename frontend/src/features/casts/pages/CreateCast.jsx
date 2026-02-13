@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../shared/api/axios";
 import { Button } from "../../../shared/ui/Button";
-import { Zap, Link as LinkIcon, Info, Layers } from "lucide-react";
+import { Zap, Link as LinkIcon, Info, Layers, Heading3 } from "lucide-react";
 
 const CreateCast = () => {
   // DB States
   const [skills, setSkills] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     title: "",
@@ -23,6 +25,11 @@ const CreateCast = () => {
       try {
         const res = await api.get("/skills");
         setSkills(res.data);
+        // Extract unique categories from skills
+        const uniqueCategories = [
+          ...new Set(res.data.map((s) => s.category)),
+        ].sort();
+        setCategories(uniqueCategories);
       } catch (err) {
         console.error("Error fetching skills:", err);
         setSkills([]);
@@ -32,6 +39,17 @@ const CreateCast = () => {
     };
     fetchSkills();
   }, []);
+
+  // Filter skills based on selected category
+  const filteredSkills = selectedCategory
+    ? skills.filter((s) => s.category === selectedCategory)
+    : [];
+
+  // Reset skill selection when category changes
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+    setFormData({ ...formData, skill_id: "" });
+  };
 
   // 2. BROADCAST LOGIC: Posts to castController.js
   const handleSubmit = async (e) => {
@@ -59,32 +77,54 @@ const CreateCast = () => {
         </header>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* CHANNEL SELECT: Linked to DB Skills */}
+          {/* CATEGORY SELECT: Choose category first to filter skills */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <Layers size={14} /> CHANNEL
+              <Layers size={14} /> CATEGORY
             </label>
             <select
               required
               className="input-brutal appearance-none cursor-pointer"
-              value={formData.skill_id}
-              onChange={(e) =>
-                setFormData({ ...formData, skill_id: e.target.value })
-              }
+              value={selectedCategory}
+              onChange={handleCategoryChange}
             >
-              <option value="">SELECT_CHANNEL...</option>
-              {skills.map((i) => (
-                <option key={i.id} value={i.id}>
-                  {i.channel?.toUpperCase()}: {i.name}
+              <option value="">select_category</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category.toUpperCase()}
                 </option>
               ))}
             </select>
           </div>
 
+          {/* SKILL SELECT: Filtered by selected category */}
+          {selectedCategory && (
+            <div>
+              <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
+                <Zap size={14} /> SKILL
+              </label>
+              <select
+                required
+                className="input-brutal appearance-none cursor-pointer"
+                value={formData.skill_id}
+                onChange={(e) =>
+                  setFormData({ ...formData, skill_id: e.target.value })
+                }
+              >
+                <option value="">select_skill...</option>
+                {filteredSkills.map((skill) => (
+                  <option key={skill.id} value={skill.id}>
+                    {skill.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
           {/* TITLE INPUT */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <Zap size={14} /> CAST_TITLE
+              <Heading3 size={14} /> TITLE
             </label>
             <input
               type="text"
@@ -100,8 +140,7 @@ const CreateCast = () => {
           {/* MEETING LINK: Essential for the 'Join' logic */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <LinkIcon size={14} />{" "}
-              CAST_LINK_DISCORD_MEET_TWITCH_YOUTUBE_ZOOM_ETC
+              <LinkIcon size={14} /> MEETING_LINK
             </label>
             <input
               type="url"
@@ -118,7 +157,7 @@ const CreateCast = () => {
           {/* DESCRIPTION TEXTAREA */}
           <div>
             <label className="flex items-center gap-2 mb-2 font-black uppercase text-xs italic">
-              <Info size={14} /> CAST_DETAILS_DESCRIPTION
+              <Info size={14} /> DETAILS
             </label>
             <textarea
               className="input-brutal h-32 resize-none"

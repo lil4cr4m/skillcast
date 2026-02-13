@@ -172,9 +172,7 @@ export default function AdminUsers() {
               <h2 className="text-2xl font-black text-ink mb-4">
                 Delete User?
               </h2>
-              <p className="text-ink mb-6">
-                This action cannot be undone.
-              </p>
+              <p className="text-ink mb-6">This action cannot be undone.</p>
               <div className="flex gap-4">
                 <Button
                   variant="cyan"

@@ -1,5 +1,5 @@
--- SEED: Channels and Skills
-INSERT INTO skills (name, channel) VALUES 
+-- SEED: Categories and Skills
+INSERT INTO skills (name, category) VALUES 
 -- TECHNOLOGY
 ('React Fundamentals', 'TECHNOLOGY'),
 ('Advanced PostgreSQL', 'TECHNOLOGY'),

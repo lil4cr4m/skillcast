@@ -47,6 +47,7 @@ import Profile from "../features/users/pages/Profile"; // Public user profiles
 import EditProfile from "../features/users/pages/EditProfile"; // User settings
 import CreateCast from "../features/casts/pages/CreateCast"; // Create new skill posts
 import AdminUsers from "../features/users/pages/AdminUsers"; // Admin user management
+import AdminSkills from "../features/skills/pages/AdminSkills"; // Admin skill management
 /**
  * Main App Component - Application Entry Point
  *
@@ -119,6 +120,16 @@ function App() {
                 element={
                   <Protected>
                     <AdminUsers />
+                  </Protected>
+                }
+              />
+
+              {/* 🎓 SKILL MANAGEMENT - Admin dashboard for managing skills */}
+              <Route
+                path="/admin/skills"
+                element={
+                  <Protected>
+                    <AdminSkills />
                   </Protected>
                 }
               />

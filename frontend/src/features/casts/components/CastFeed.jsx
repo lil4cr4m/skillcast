@@ -100,7 +100,7 @@ const CastFeed = ({ selectedChannel, searchQuery }) => {
         // 🔍 BUILD QUERY PARAMETERS
         // Only include parameters that have values
         const params = {};
-        if (selectedChannel) params.channel = selectedChannel;
+        if (selectedChannel) params.category = selectedChannel;
         if (searchQuery) params.q = searchQuery;
 
         // 📡 API REQUEST WITH FILTERS

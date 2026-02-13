@@ -152,7 +152,7 @@ const CastCard = ({ cast, onUpdate, onDelete }) => {
     <div className="bg-white border-4 border-ink p-6 shadow-brutal hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all flex flex-col h-full">
       <div className="flex justify-between items-start mb-4">
         <span className="bg-ink text-offwhite px-2 py-1 text-[0.6rem] font-black uppercase tracking-widest">
-          {formatSnakeIfMultiWord(cast.skill?.channel) || "GENERAL"} // CHANNEL
+          {formatSnakeIfMultiWord(cast.category) || "GENERAL"}
         </span>
         {/* LIVE status: green animated dot (neon color) */}
         {cast.status === "LIVE" && (

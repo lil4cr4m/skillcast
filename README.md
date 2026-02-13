@@ -4,13 +4,13 @@
 
 ## About SkillCast
 
-SkillCast is an innovative community platform designed to democratize knowledge sharing and foster meaningful professional connections. Built with a bold neo-brutalist design aesthetic, SkillCast enables experts and learners to connect through live "casts" (video broadcasts) organized by skill channels.
+SkillCast is an innovative community platform designed to democratize knowledge sharing and foster meaningful professional connections. Built with a bold neo-brutalist design aesthetic, SkillCast enables experts and learners to connect through live "casts" (video broadcasts) organized by skill categories.
 
 **Core Functionality:**
 
 - Launch and join live skill-sharing broadcasts with integrated meeting links
 - Build social currency through a gamified "credit" system (gratitude notes)
-- Discover expertise across diverse skill channels
+- Discover expertise across diverse skill categories
 - Compete on leaderboards and track your contribution to the community
 - Manage user accounts and skill catalogs via admin panel
 
@@ -137,11 +137,11 @@ All attributions follow the MIT and equivalent open-source license requirements.
 
 ✅ **Authentication** – Register, login, refresh tokens, password management  
 ✅ **Live Casts** – Create skill-based broadcasts with meeting links  
-✅ **Skill Catalog** – Admin-managed channel-organized skill taxonomy  
+✅ **Skill Catalog** – Admin-managed category-organized skill taxonomy  
 ✅ **Gratitude System** – Send credit notes to cast creators (+10 credit per note)  
 ✅ **Leaderboard** – Rank users by total credit earned  
 ✅ **User Profiles** – View stats (casts created, notes received)  
-✅ **Admin Panel** – Full user management (create, edit, delete, update role/credit)  
+✅ **Admin Panel** – Full user and skill management (create, edit, delete, update)  
 ✅ **Role-Based Access** – Member vs Admin permissions
 
 ## Project Structure
@@ -150,7 +150,7 @@ All attributions follow the MIT and equivalent open-source license requirements.
 skillcast/
 ├── frontend/                 # React + Vite SPA
 │   ├── src/
-│   │   ├── pages/           # Home, Login, Profile, CreateCast, AdminUsers
+│   │   ├── pages/           # Home, Login, Profile, CreateCast, AdminUsers, AdminSkills
 │   │   ├── components/      # UI components, CastFeed, CastCard, CreditForm
 │   │   ├── context/         # AuthContext (JWT state)
 │   │   ├── api/             # Axios instance & endpoints
@@ -197,12 +197,16 @@ See [DOCUMENTATION.md](DOCUMENTATION.md) for complete reference:
 
 - `POST /api/auth/register` – Create account
 - `POST /api/auth/login` – Sign in
+- `GET /api/skills` – List skill catalog
 - `POST /api/casts` – Launch cast
 - `GET /api/casts` – List casts
 - `POST /api/notes` – Send gratitude
 - `GET /api/users/leaderboard` – Top 10 users
 - `GET /api/users/admin/all` – All users (admin)
+- `POST /api/skills` – Create skill (admin)
+- `PUT /api/skills/:id` – Update skill (admin)
 - `DELETE /api/users/:id` – Delete user (admin)
+- `DELETE /api/skills/:id` – Delete skill (admin)
 
 ## Development
 
@@ -239,7 +243,7 @@ npm test  # Run Jest tests (when configured)
 
 - Create broadcast with skill, title, description, Zoom/Teams link
 - Join via external meeting link
-- Filter by skill channel
+- Filter by skill category
 - Search by title/keywords
 - Cast status management (LIVE, PAUSED, ENDED, ARCHIVED)
 - Owner can edit, end, or archive cast

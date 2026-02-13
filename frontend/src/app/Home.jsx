@@ -189,7 +189,7 @@ const Home = () => {
               {/* Custom Tailwind class for consistent input styling */}
               <input
                 type="text"
-                placeholder="search_for_channels"
+                placeholder="search_for_skills"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="input-brutal w-full pr-12"

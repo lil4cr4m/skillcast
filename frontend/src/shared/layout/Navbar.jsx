@@ -159,16 +159,29 @@ export const Navbar = () => {
               {/* 🔒 ADMIN LINK - Only visible for admin users */}
               {/* Role-based access control */}
               {user.role === "admin" && (
-                <Link
-                  to="/admin/users"
-                  className={`font-black uppercase text-sm tracking-tight flex items-center gap-2 ${
-                    pathname === "/admin/users"
-                      ? "text-violet underline decoration-4 underline-offset-4"
-                      : "hover:text-violet"
-                  }`}
-                >
-                  <AdminIcon size={16} /> ADMIN
-                </Link>
+                <>
+                  <Link
+                    to="/admin/users"
+                    className={`font-black uppercase text-sm tracking-tight flex items-center gap-2 ${
+                      pathname === "/admin/users"
+                        ? "text-violet underline decoration-4 underline-offset-4"
+                        : "hover:text-violet"
+                    }`}
+                  >
+                    <AdminIcon size={16} /> ADMIN
+                  </Link>
+
+                  <Link
+                    to="/admin/skills"
+                    className={`font-black uppercase text-sm tracking-tight flex items-center gap-2 ${
+                      pathname === "/admin/skills"
+                        ? "text-violet underline decoration-4 underline-offset-4"
+                        : "hover:text-violet"
+                    }`}
+                  >
+                    <AdminIcon size={16} /> SKILLS
+                  </Link>
+                </>
               )}
 
               {/* 🚪 LOGOUT BUTTON */}

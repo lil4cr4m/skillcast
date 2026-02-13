@@ -41,7 +41,7 @@
 | ------------ | ------------ | ---------------- | --------------------------------------- |
 | `id`         | UUID         | PRIMARY KEY      | Unique skill identifier                 |
 | `name`       | VARCHAR(100) | UNIQUE, NOT NULL | Skill/topic name (e.g., "React")        |
-| `channel`    | VARCHAR(50)  | NOT NULL         | Category (e.g., "Technology", "Design") |
+| `category`   | VARCHAR(50)  | NOT NULL         | Category (e.g., "Technology", "Design") |
 | `created_at` | TIMESTAMPTZ  | DEFAULT NOW()    | Skill creation timestamp                |
 
 #### `casts`
@@ -182,6 +182,15 @@ App
 │           │       │   └── Form (username, email, password, role)
 │           │       └── DeleteConfirmation
 │           │
+│           ├── /admin/skills (Protected - AdminSkills)
+│           │   └── AdminSkills
+│           │       ├── Skills Table
+│           │       ├── CreateSkillModal
+│           │       │   └── Form (name, category)
+│           │       ├── EditSkillModal
+│           │       │   └── Form (name, category)
+│           │       └── DeleteConfirmation
+│           │
 │           └── * (404)
 
 SHARED COMPONENTS:
@@ -225,18 +234,18 @@ UTILITIES:
 
 ### Skills
 
-| Method | Path              | Auth        | Description               | Request Body        | Response                     |
-| ------ | ----------------- | ----------- | ------------------------- | ------------------- | ---------------------------- |
-| GET    | `/api/skills`     | No          | Get skill catalog         | -                   | `[{id, name, channel}, ...]` |
-| POST   | `/api/skills`     | Yes (admin) | Create skill (admin only) | `{name, channel}`   | `{id, name, channel}`        |
-| PUT    | `/api/skills/:id` | Yes (admin) | Update skill (admin only) | `{name?, channel?}` | Updated skill object         |
-| DELETE | `/api/skills/:id` | Yes (admin) | Delete skill (admin only) | -                   | `{message, id}`              |
+| Method | Path              | Auth        | Description               | Request Body         | Response                      |
+| ------ | ----------------- | ----------- | ------------------------- | -------------------- | ----------------------------- |
+| GET    | `/api/skills`     | No          | Get skill catalog         | -                    | `[{id, name, category}, ...]` |
+| POST   | `/api/skills`     | Yes (admin) | Create skill (admin only) | `{name, category}`   | `{id, name, category}`        |
+| PUT    | `/api/skills/:id` | Yes (admin) | Update skill (admin only) | `{name?, category?}` | Updated skill object          |
+| DELETE | `/api/skills/:id` | Yes (admin) | Delete skill (admin only) | -                    | `{message, id}`               |
 
 ### Casts
 
 | Method | Path             | Auth              | Description      | Request Body                                             | Response                                                                                   |
 | ------ | ---------------- | ----------------- | ---------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| GET    | `/api/casts`     | No                | List all casts   | query: `channel?, search?`                               | `[{id, creator_id, skill_id, title, description, meeting_link, is_live, created_at}, ...]` |
+| GET    | `/api/casts`     | No                | List all casts   | query: `category?, search?`                              | `[{id, creator_id, skill_id, title, description, meeting_link, is_live, created_at}, ...]` |
 | POST   | `/api/casts`     | Yes               | Create cast      | `{skill_id, title, description, meeting_link, is_live?}` | `{id, creator_id, skill_id, title, ...}`                                                   |
 | PUT    | `/api/casts/:id` | Yes (owner/admin) | Update cast      | `{title?, description?, meeting_link?, is_live?}`        | Updated cast object                                                                        |
 | DELETE | `/api/casts/:id` | Yes (owner/admin) | Delete cast      | -                                                        | `{message, id}`                                                                            |
@@ -431,6 +440,50 @@ UTILITIES:
 - DELETE `/api/users/:id` removes user + all related records
 - Gratitude notes & casts cascaded deleted
 - Prevents self-deletion (security)
+
+### 7. Admin Skill Management
+
+**Access:**
+
+- Only `role='admin'` users can access `/admin/skills`
+- Non-admins redirected to home
+- "SKILLS" link appears in navbar for admins (next to ADMIN link)
+- Protected by `<Protected>` wrapper + client-side role check
+
+**View All Skills:**
+
+- Table displays all current skills with columns: Name, Category, Actions
+- Skills grouped by category (TECHNOLOGY, DESIGN, ART, LIFESTYLE, etc.)
+- Category shown as yellow badge (`bg-yellow-300`)
+- Action buttons: Edit (cyan pencil), Delete (pink trash)
+- Real-time updates as skills are added/edited/deleted
+
+**Create Skill:**
+
+- "CREATE_SKILL" button opens modal form
+- Admin enters: name (text), category (text)
+- POST `/api/skills` creates new skill record
+- Validation ensures both fields are required
+- Success feedback updates table immediately
+- New skill available in CreateCast dropdown
+
+**Edit Skill:**
+
+- Click Edit (cyan pencil icon) on any skill row
+- Modal form pre-populated with current name + category
+- Admin modifies name and/or category
+- PUT `/api/skills/:id` saves changes
+- Error handling if name is duplicate (UNIQUE constraint)
+- Updated skill reflected in CreateCast filters
+
+**Delete Skill:**
+
+- Click Delete (pink trash icon) on any skill row
+- Confirmation modal: "Delete this skill?"
+- DELETE `/api/skills/:id` removes skill from catalog
+- WARNING: Orphans any casts that used this skill
+- Prevents accidental deletion with confirmation step
+- Skill removed from CreateCast dropdown filters
 
 ---
 

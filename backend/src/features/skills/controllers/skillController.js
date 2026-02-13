@@ -2,7 +2,7 @@
  * SKILLS CATALOG CONTROLLER
  * Manages the global skill/topic database and user skill profiles
  * Handles skill discovery, user skill pinning, and admin catalog management
- * Skills are organized by channels (categories) for better discovery
+ * Skills are organized by categories for better discovery
  */
 
 import { query } from "../../../shared/config/db.js";
@@ -14,16 +14,16 @@ import { logError } from "../../../shared/utils/logger.js";
 
 /**
  * Retrieves the complete global skills catalog
- * Shows all available skills organized by channel (category)
+ * Shows all available skills organized by category
  * Used for skill discovery and cast creation selection
  *
- * Returns skills sorted alphabetically within each channel
+ * Returns skills sorted alphabetically within each category
  */
 export const getAllSkills = async (req, res) => {
   try {
-    // Get complete skill catalog ordered by channel then name
+    // Get complete skill catalog ordered by category then name
     const result = await query(
-      "SELECT * FROM skills ORDER BY channel, name ASC",
+      "SELECT * FROM skills ORDER BY category, name ASC",
     );
     res.json(result.rows);
   } catch (err) {
@@ -50,7 +50,7 @@ export const getUserSkills = async (req, res) => {
        FROM user_skills us
        JOIN skills s ON us.skill_id = s.id
        WHERE us.user_id = $1
-       ORDER BY s.channel, s.name`,
+       ORDER BY s.category, s.name`,
       [userId],
     );
 
@@ -102,14 +102,14 @@ export const addUserSkill = async (req, res) => {
 /**
  * Creates a new skill in the global catalog
  * Admin-only operation to expand available topics
- * Skills must have both name and channel (category)
+ * Skills must have both name and category
  *
  * Body parameters:
  * - name: The skill/topic name (e.g., "React Hooks")
- * - channel: The category/channel (e.g., "Programming", "Design")
+ * - category: The category (e.g., "Programming", "Design")
  */
 export const createSkill = async (req, res) => {
-  const { name, channel } = req.body;
+  const { name, category } = req.body;
 
   // Verify admin access
   if (req.user?.role !== "admin") {
@@ -117,19 +117,19 @@ export const createSkill = async (req, res) => {
   }
 
   // Validate required fields
-  if (!name || !channel) {
-    return res.status(400).json({ error: "Name and channel are required" });
+  if (!name || !category) {
+    return res.status(400).json({ error: "Name and category are required" });
   }
 
   try {
     // Insert new skill into catalog
     const result = await query(
-      "INSERT INTO skills (name, channel) VALUES ($1, $2) RETURNING *",
-      [name, channel],
+      "INSERT INTO skills (name, category) VALUES ($1, $2) RETURNING *",
+      [name, category],
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
-    logError("skillController.createSkill", err, { name, channel });
+    logError("skillController.createSkill", err, { name, category });
     res.status(500).json({ error: "Failed to create skill" });
   }
 };
@@ -137,18 +137,18 @@ export const createSkill = async (req, res) => {
 /**
  * Updates an existing skill's details
  * Admin-only operation to maintain catalog accuracy
- * Can modify both name and channel classification
+ * Can modify both name and category classification
  *
  * Path parameters:
  * - id: UUID of the skill to update
  *
  * Body parameters:
  * - name: Required - Updated skill name
- * - channel: Required - Updated channel/category
+ * - category: Required - Updated category
  */
 export const updateSkill = async (req, res) => {
   const { id } = req.params;
-  const { name, channel } = req.body;
+  const { name, category } = req.body;
 
   // Verify admin access
   if (req.user?.role !== "admin") {
@@ -156,15 +156,15 @@ export const updateSkill = async (req, res) => {
   }
 
   // Validate required fields
-  if (!name || !channel) {
-    return res.status(400).json({ error: "Name and channel are required" });
+  if (!name || !category) {
+    return res.status(400).json({ error: "Name and category are required" });
   }
 
   try {
     // Update skill with new details
     const result = await query(
-      "UPDATE skills SET name = $1, channel = $2 WHERE id = $3 RETURNING *",
-      [name, channel, id],
+      "UPDATE skills SET name = $1, category = $2 WHERE id = $3 RETURNING *",
+      [name, category, id],
     );
 
     // Check if skill exists
@@ -174,7 +174,7 @@ export const updateSkill = async (req, res) => {
 
     res.json(result.rows[0]);
   } catch (err) {
-    logError("skillController.updateSkill", err, { id, name, channel });
+    logError("skillController.updateSkill", err, { id, name, category });
     res.status(500).json({ error: "Failed to update skill" });
   }
 };

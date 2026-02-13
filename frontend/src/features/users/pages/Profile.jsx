@@ -473,11 +473,11 @@ const Profile = () => {
                     key={cast.id}
                     className="border-3 border-ink rounded-2xl p-5 bg-neutral-50 shadow-brutal hover:shadow-none transition-all flex flex-col gap-3"
                   >
-                    {/* Header: Title & Channel */}
+                    {/* Header: Title & Category */}
                     <div className="flex justify-between items-start gap-3">
                       <div className="min-w-0 flex-1">
                         <span className="text-[0.6rem] font-black uppercase tracking-widest text-ink/60 block mb-1">
-                          {toSnakeCase(cast.channel) || "general"}
+                          {toSnakeCase(cast.category) || "general"}
                         </span>
                         <h4 className="font-black text-lg text-ink uppercase leading-tight">
                           {toSnakeCase(cast.title)}

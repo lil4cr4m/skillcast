@@ -17,7 +17,7 @@ import { logError } from "../../../shared/utils/logger.js";
  * Supports filtering by skill category and text search
  *
  * Query parameters:
- * - category: Filter by skill channel/category
+ * - category: Filter by skill category
  * - q: Search in title, description, username, or skill name
  */
 export const getAllCasts = async (req, res) => {
@@ -26,7 +26,7 @@ export const getAllCasts = async (req, res) => {
   try {
     // Base query: Get LIVE and ENDED casts (exclude PAUSED and ARCHIVED) from last 24 hours
     let queryText = `
-      SELECT c.*, u.username, u.credit, s.name as skill_name, s.channel
+      SELECT c.*, u.username, u.credit, s.name as skill_name, s.category
       FROM casts c
       JOIN users u ON c.creator_id = u.id
       JOIN skills s ON c.skill_id = s.id
@@ -38,7 +38,7 @@ export const getAllCasts = async (req, res) => {
     // Add category filter if specified
     if (category) {
       params.push(category);
-      queryText += ` AND s.channel = $${params.length}`;
+      queryText += ` AND s.category = $${params.length}`;
     }
 
     // Add text search across multiple fields if specified
