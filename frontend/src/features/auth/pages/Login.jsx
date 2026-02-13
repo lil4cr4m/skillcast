@@ -215,7 +215,7 @@ const Login = () => {
               Session_Active
             </h2>
             <p className="text-ink/60 font-bold text-xs uppercase mb-8 tracking-widest">
-              Identified as: {activeUser.username || activeUser.email}
+              Identified_as: {activeUser.username || activeUser.email}
             </p>
 
             <Button
@@ -230,7 +230,7 @@ const Login = () => {
               onClick={() => navigate("/")}
               className="mt-6 font-black uppercase text-[10px] tracking-[0.2em] underline decoration-violet decoration-2 underline-offset-4"
             >
-              Return to Feed
+              Return_to_Feed
             </button>
           </div>
         ) : (
@@ -242,10 +242,10 @@ const Login = () => {
 
             <header className="text-center mb-10">
               <h2 className="text-4xl font-black italic uppercase tracking-tighter">
-                {isLogin ? "IN THE CLUB" : "START SHARING"}
+                {isLogin ? "IN_THE_CLUB" : "START_SHARING"}
               </h2>
               <p className="text-ink/60 font-bold text-xs uppercase mt-2 tracking-widest">
-                {isLogin ? "Join the Cast" : "Register Here"}
+                {isLogin ? "Join_the_Cast" : "Register_Here"}
               </p>
             </header>
 
@@ -329,11 +329,11 @@ const Login = () => {
               >
                 {isLogin ? (
                   <>
-                    <LogIn size={20} /> SIGN IN
+                    <LogIn size={20} /> SIGN_IN
                   </>
                 ) : (
                   <>
-                    <UserPlus size={20} /> SIGN UP
+                    <UserPlus size={20} /> SIGN_UP
                   </>
                 )}
               </Button>
@@ -345,8 +345,8 @@ const Login = () => {
                 className="text-cyan font-black uppercase text-xs tracking-widest hover:underline decoration-cyan decoration-4 underline-offset-4"
               >
                 {isLogin
-                  ? "New here? [Create_Account]"
-                  : "Known user? [Authenticate]"}
+                  ? "New_here? [Create_Account]"
+                  : "Known_user? [Authenticate]"}
               </button>
             </div>
           </>
